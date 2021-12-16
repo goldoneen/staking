@@ -78,3 +78,8 @@ export const getBlockNumber = () => {
     })
 }
 
+
+export const detectProvider = async () => {
+    provider = await detectEthereumProvider();
+    return provider ? true : false
+}
