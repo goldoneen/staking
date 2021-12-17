@@ -78,7 +78,7 @@ function StackingPoolPage() {
 
   useEffect(() => {
     setWallet();
-  }, []);
+  }, [depositedAmount]);
 
   useEffect(() => {
     if (gamersePool) {
@@ -148,15 +148,11 @@ function StackingPoolPage() {
     try {
       let data: any = await getLP_Token();
       console.log("lp token:-=-=-=", data);
-      try {
-        const balance = await data.lp_token.balanceOf(
-          process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
-        );
-        setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
-        onGetGamerPools();
-      } catch (error) {
-        console.log("balance error:-=-=", error);
-      }
+      const balance = await data.lp_token.balanceOf(
+        process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
+      );
+      setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
+      onGetGamerPools();
 
       setLpToken(data.lp_token);
 

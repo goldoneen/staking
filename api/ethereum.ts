@@ -80,6 +80,6 @@ export const getBlockNumber = () => {
 
 
 export const detectProvider = async () => {
-    provider = await detectEthereumProvider();
-    return provider ? true : false
+    let currentProvider = await detectEthereumProvider();
+    return currentProvider ? true : false
 }
