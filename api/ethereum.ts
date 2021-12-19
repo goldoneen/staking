@@ -68,11 +68,13 @@ export const getLFG_Token = () =>
 export const getBlockNumber = () => {
     return new Promise(async (resolve, reject) => {
         if (provider) {
-            const providerBlockNum = await provider.getBlockNumber()
-
-            // console.log("proviceBlockNum:-=-=", providerBlockNum)
-            resolve({ providerBlockNum })
-            return
+            try {
+                const providerBlockNum = await provider.getBlockNumber()
+                resolve({ providerBlockNum })
+                return
+            } catch (error) {
+                reject(false)
+            }
         }
         reject('Install Metamask');
     })

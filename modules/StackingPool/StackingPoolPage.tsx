@@ -1,18 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { message } from "antd";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { images } from "../../assets/image";
 import styles from "./StakingPoolComponent.module.scss";
 import StackToken from "../wallet/StackToken";
 import ConnectedWalletPopup from "../wallet/ConnectedWalletPopup";
-import { tokenSelector } from "../../store/selectors";
 import { getBlockNumber, getGamersePool, getLP_Token } from "../../api";
 import { saveDepositAmountAction } from "../../store/actions";
 import moment from "moment";
-// import Countdown from 'antd/lib/statistic/Countdown'
-import { Statistic } from "antd";
 import Countdown from "react-countdown";
+import Web3 from "web3";
 
 const initStakingData = [
   {
@@ -62,14 +61,10 @@ function StackingPoolPage() {
   const [redeemableAmount, setRedeemableAmount] = useState<string>("");
   const [minAmountToStake, setMinAmountToStake] = useState<string>("");
   const router = useRouter();
-  const phandlePopup = () => {
-    setBtnState(walletType);
-    setOpenStackPopup(false);
-  };
+
   const dispatch = useDispatch();
 
   const [gamersePool, setGamersePool] = useState<any>(undefined);
-  const [gamersePoolBalance, setGamersePoolBalance] = useState<any>(undefined);
   const [totalLFGStaked, setTotalLFGStaked] = useState<any>(undefined);
   const [adStartBlock, setAdStartBlock] = useState<any>(undefined);
   const [blockNumber, setBlockNumber] = useState<any>(undefined);
@@ -83,9 +78,23 @@ function StackingPoolPage() {
   useEffect(() => {
     if (gamersePool) {
       getUSer();
-      // getPendingRewars()
     }
   }, [gamersePool]);
+
+  window.addEventListener("load", function () {
+    if (window.ethereum) {
+      const web3 = new Web3(window.ethereum);
+      window.ethereum.enable();
+      window.ethereum.on("networkChanged", function (networkId: any) {
+        // 97, 56
+        if (networkId != 97 && networkId != 56) {
+          message.error(
+            "Please try again after connect Binance Smart Chain Network on metamask"
+          );
+        }
+      });
+    }
+  });
 
   useEffect(() => {
     if (userAdd && gamersePool) {
