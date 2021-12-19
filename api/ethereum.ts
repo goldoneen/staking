@@ -1,4 +1,6 @@
 import detectEthereumProvider from '@metamask/detect-provider';
+import { message } from "antd";
+import Web3 from "web3";
 import { ethers, Contract } from 'ethers';
 import LP_Token from './LP_Token.json';
 import GamersePool from './GamersPool.json'
@@ -85,3 +87,22 @@ export const detectProvider = async () => {
     let currentProvider = await detectEthereumProvider();
     return currentProvider ? true : false
 }
+
+
+export const providerListner = async () => {
+      if (provider) {
+      const web3 = new Web3(provider);
+      //provider.enable();
+      provider.on("networkChanged", function (networkId: any) {
+        // 97, 56
+        if (networkId === 97 || networkId === 56) {
+          window.location.reload();
+        } else {
+          message.error(
+            "Please try again after connect Binance Smart Chain Network on metamask"
+          );
+          window.location.reload();
+        }
+      });
+    }
+  }

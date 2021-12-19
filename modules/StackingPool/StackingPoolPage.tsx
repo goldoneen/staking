@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { message } from "antd";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -11,7 +10,8 @@ import { getBlockNumber, getGamersePool, getLP_Token } from "../../api";
 import { saveDepositAmountAction } from "../../store/actions";
 import moment from "moment";
 import Countdown from "react-countdown";
-import Web3 from "web3";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { providerListner } from "../../api/ethereum";
 
 const initStakingData = [
   {
@@ -81,29 +81,11 @@ function StackingPoolPage() {
     }
   }, [gamersePool]);
 
-  window.addEventListener("load", function () {
-    if (window.ethereum) {
-      const web3 = new Web3(window.ethereum);
-      window.ethereum.enable();
-      window.ethereum.on("networkChanged", function (networkId: any) {
-        // 97, 56
-        if (networkId != 97 && networkId != 56) {
-          message.error(
-            "Please try again after connect Binance Smart Chain Network on metamask"
-          );
-        }
-      });
-    }
-  });
-
   useEffect(() => {
-    if (userAdd && gamersePool) {
-      getPendingRewars();
-      const pendingTime = setInterval(() => {
-        getPendingRewars();
-      }, 10000);
-    }
-  }, [userAdd, gamersePool]);
+    window.addEventListener("load", function () {
+      providerListner();
+    });
+  }, []);
 
   const compareBlockNumber = async () => {
     let endBlockNumber = await gamersePool.bonusEndBlock();
