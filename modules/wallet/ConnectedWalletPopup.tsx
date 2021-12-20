@@ -1,12 +1,14 @@
 import { Modal } from 'antd';
 import { ethers } from 'ethers';
-import React, { Fragment, useState } from 'react'
-import { DebounceInput } from 'react-debounce-input'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import styles from './Wallet.module.scss'
 
 function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmount, handleStackDeposit }: any) {
 
     const [amount, setAmount] = useState<number>()
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
+    const [max, setMax] = useState(0);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const onWithdraw = async () => {
         if (!validateAmount()) {
@@ -40,6 +42,16 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
         console.log("eeee", e.target.value)
     }
 
+    const updateMaxAmount = () => {
+            setAmount(Number(depositAmount));
+            setMax(max+1)
+    }
+    useEffect(()=>{
+        if(inputRef && inputRef.current){
+            inputRef.current.focus();
+        }
+    },[max])
+
     return (
         <Modal
             title={<h4>Withdraw</h4>}
@@ -52,12 +64,13 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
         >
             <div className="At-ConnectWalletPopup">
                 <p className='text-grey'>
-                    Staking withdraw disclaimer: Early withdraw will result in 50% of incurred profits burned
+                    Staking withdraw disclaimer: Early withdraw will result in 50% of incured profits burned
                 </p>
                 {!loading && <>
                     <form className="w-100 mt-4">
-                        <div className="At-FormGroup">
+                        <div className="At-FormGroup position-relative ">
                             <input
+                                ref={inputRef}
                                 className="form-control At-FormControl border p-3 At-NumberInput"
                                 type="number"
                                 placeholder="5000"
@@ -65,6 +78,8 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
                                 value={amount}
                                 onChange={onChangeAmount}
                             />
+
+                        <span onClick={updateMaxAmount} className={`${styles.claimInputBtn} position-absolute`} >Max</span>
                             {!validateAmount() &&
                 <div className='text-red text-start mt-1'>Unstake amount must be less than deposit amount</div>}
                         </div>

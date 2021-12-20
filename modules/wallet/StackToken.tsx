@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Modal } from 'antd'
 import { DebounceInput } from 'react-debounce-input'
 import { images } from '../../assets/image'
 import { ethers } from 'ethers'
 import { getGamersePool } from '../../api'
-import Loader from '../../components/Loader/Loader'
+import Loader from '../../components/Loader/Loader';
+import styles from './Wallet.module.scss';
 
 function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStackDeposit, selectedStakingData, minAmountToStake }: any) {
     const main = 'mian',
@@ -18,7 +19,9 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
     const [validatingLoader, setValidatingLoader] = useState<boolean>(false)
     const [isWithDraw, setIsWithDraw] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string>('')
+    const [error, setError] = useState<string>('');
+    const [max, setMax] = useState(0);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const getApprove = async () => {
         setLoading(true)
@@ -78,6 +81,16 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
             validateAmount(e.target.value)
         }
     }
+    
+    const updateMaxAmount = () => {
+            setAmount(Number(balance));
+            setMax(max+1)
+    }
+    useEffect(()=>{
+        if(inputRef && inputRef.current){
+            inputRef.current.focus();
+        }
+    },[max])
     const mainLayout = (
         <Fragment>
             <p className='text-grey'>
@@ -100,6 +113,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
                 <form className="At-HeaderSearch mt-2">
                     <div className="At-FormGroup At-FormGroupIcon">
                         <DebounceInput
+                            inputRef={inputRef}
                             className="form-control At-FormControl border p-3 At-NumberInput"
                             type="number"
                             placeholder="5000"
@@ -108,6 +122,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
                             value={amount}
                             onChange={onChangeAmount}
                         />
+                        <span onClick={updateMaxAmount} className={`${styles.claimInputBtn} position-absolute`} >Max</span>
                         {!error ? <div className='text-start mt-1'> <p className='text-grey' style={{ fontSize: "12px" }}>Stake min {minAmountToStake} to participate in NFT air drop</p></div> :
                             <div className='text-red text-start mt-1'>{error}</div>}
                     </div>
