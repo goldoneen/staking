@@ -10,6 +10,8 @@ import { getBlockNumber, getGamersePool, getLP_Token } from "../../api";
 import { saveDepositAmountAction } from "../../store/actions";
 import moment from "moment";
 import Countdown from "react-countdown";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providerListner } from "../../api/ethereum";
 
@@ -60,6 +62,9 @@ function StackingPoolPage() {
   const [pendingRewards, setPendingRewards] = useState<string>("");
   const [redeemableAmount, setRedeemableAmount] = useState<string>("");
   const [minAmountToStake, setMinAmountToStake] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
+  const [blanceError, setBalanceError] = useState<boolean>(false);
+
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -86,6 +91,16 @@ function StackingPoolPage() {
       providerListner();
     });
   }, []);
+
+  const notify = (message: string) => toast.error(message, {
+    position: "top-center",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  })
 
   const compareBlockNumber = async () => {
     let endBlockNumber = await gamersePool.bonusEndBlock();
@@ -142,14 +157,21 @@ function StackingPoolPage() {
       const balance = await data.lp_token.balanceOf(
         process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
       );
+      const user = await data.lp_token.balanceOf(
+        process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
+      );
+
       setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
       onGetGamerPools();
 
       setLpToken(data.lp_token);
 
       getBalance(data.lp_token);
+      setError(false);
     } catch (error) {
-      console.log("set wallet error:-=-=", error);
+      setError(true);
+      notify('Please connect to BSC or BSC Testnet');
+
     }
   };
 
@@ -260,7 +282,7 @@ function StackingPoolPage() {
       setSelectedStakingData(s);
       setOpenStackPopup(true);
     } else {
-      alert("You don't have enough balance.");
+      notify('You don\'t have enough balance.');
     }
   };
 
@@ -290,6 +312,8 @@ function StackingPoolPage() {
     getBalance(lp_token);
   };
 
+  const apy: number = (((13000000 / totalLFGStaked) * 100) / 100);
+  const max = 88000;
   return (
     <Fragment>
       <section className="At-SectionGap-B35 ">
@@ -323,10 +347,10 @@ function StackingPoolPage() {
                                 stack.role == "Moon Pool"
                                   ? images.mars.src
                                   : stack.role == "Venus Pool"
-                                  ? images.venus.src
-                                  : stack.role == "Mars Pool"
-                                  ? images.jupiter.src
-                                  : images.mars.src
+                                    ? images.venus.src
+                                    : stack.role == "Mars Pool"
+                                      ? images.jupiter.src
+                                      : images.mars.src
                               }
                               className="img-fluid"
                               alt=""
@@ -342,10 +366,8 @@ function StackingPoolPage() {
                               <span className="text-green ms-1">
                                 {" "}
                                 {totalLFGStaked
-                                  ? (
-                                      ((13000000 / totalLFGStaked) * 100) /
-                                      100
-                                    ).toFixed(2)
+                                  ?
+                                  (apy > max ? max : (apy).toFixed(2))
                                   : 0}{" "}
                                 %{" "}
                               </span>
@@ -371,8 +393,8 @@ function StackingPoolPage() {
                                 ? calculateCurrentPenalty()
                                 : 0}{" "}
                               {penaltyUntil &&
-                              !isNaN(penaltyUntil) &&
-                              penaltyUntil > 0
+                                !isNaN(penaltyUntil) &&
+                                penaltyUntil > 0
                                 ? `until ${penaltyUntil} day(s)`
                                 : ""}
                             </p>
@@ -405,8 +427,8 @@ function StackingPoolPage() {
                                     86400 -
                                     (Number(blockNumber) -
                                       Number(adStartBlock)) *
-                                      3) *
-                                    1000
+                                    3) *
+                                  1000
                                 }
                                 renderer={({
                                   days,
@@ -437,6 +459,7 @@ function StackingPoolPage() {
                         <button
                           className="At-Btn At-BtnFull py-3 At-BtnLightBlue"
                           type="button"
+                          disabled={error}
                           onClick={(e) => {
                             onOpenStackPopup(stack);
                           }}
@@ -450,6 +473,7 @@ function StackingPoolPage() {
                             <button
                               className="At-Btn At-BtnFull"
                               type="button"
+                              disabled={error}
                               onClick={(e) => {
                                 openConnectedWallet(stack);
                               }}
@@ -459,12 +483,12 @@ function StackingPoolPage() {
                           }
                         </div>
                       )}
-                      <div className="col-6 p-0 mt-2 px-1">
+                      <div className={`${Number(depositedAmount) > 0 ? 'col-6' : 'col-12'} p-0 mt-2 px-1`}>
                         <button
                           className="At-Btn At-BtnFull AtBtnPurple"
                           type="button"
                           onClick={() => onClickClaim()}
-                          disabled={Number(pendingRewards) == 0}
+                          disabled={Number(pendingRewards) == 0 || error}
                         >
                           Claim
                         </button>
