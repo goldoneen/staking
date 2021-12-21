@@ -11,7 +11,6 @@ import { useStore, Provider } from "react-redux";
 import { Fragment } from 'react'
 import Header from '../components/Header/Header'
 import DarkThemeButton from '../components/DarkThemeButton/DarkThemeButton';
-import { ToastContainer } from 'react-toastify';
 
 function MyApp({ Component, pageProps }: any) {
   const store: any = useStore();
@@ -22,7 +21,6 @@ function MyApp({ Component, pageProps }: any) {
           <Header />
           <Component {...pageProps} />
           <DarkThemeButton />
-          <ToastContainer newestOnTop />
         </Fragment>
       </PersistGate>) :
       (
@@ -31,7 +29,6 @@ function MyApp({ Component, pageProps }: any) {
             <Header />
             <Component {...pageProps} />
             <DarkThemeButton />
-            <ToastContainer newestOnTop />
           </Fragment>
         </PersistGate>
       )
