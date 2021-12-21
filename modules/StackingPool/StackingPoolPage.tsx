@@ -132,7 +132,7 @@ function StackingPoolPage() {
     setPendingRewards("0.0000");
   };
 
-  const getPendingRewars = async (e:any) => {
+  const getPendingRewars = async (e: any) => {
     if (!e) return;
     try {
       const tx = await e.pendingReward(userAdd);
@@ -466,8 +466,8 @@ function StackingPoolPage() {
                         </button>
                       </div>
                       {Number(depositedAmount) > 0 && (
-                        <div className="col-6 px-1 mt-2">
-                          {
+                        <>
+                          <div className="col-6 px-1 mt-2">
                             <button
                               className="At-Btn At-BtnFull"
                               type="button"
@@ -478,19 +478,19 @@ function StackingPoolPage() {
                             >
                               {"Unstake"}
                             </button>
-                          }
-                        </div>
+                          </div>
+                          <div className="col-6 p-0 mt-2 px-1">
+                            <button
+                              className="At-Btn At-BtnFull AtBtnPurple"
+                              type="button"
+                              onClick={() => onClickClaim()}
+                              disabled={Number(pendingRewards) == 0 || error}
+                            >
+                              Claim
+                            </button>
+                          </div>
+                        </>
                       )}
-                      <div className={`${Number(depositedAmount) > 0 ? 'col-6' : 'col-12'} p-0 mt-2 px-1`}>
-                        <button
-                          className="At-Btn At-BtnFull AtBtnPurple"
-                          type="button"
-                          onClick={() => onClickClaim()}
-                          disabled={Number(pendingRewards) == 0 || error}
-                        >
-                          Claim
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
