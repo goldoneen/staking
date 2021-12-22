@@ -422,7 +422,7 @@ function StackingPoolPage() {
                                     process.env
                                       .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string
                                   ) *
-                                    86400 -
+                                    7.776e+6 -
                                     (Number(blockNumber) -
                                       Number(adStartBlock)) *
                                     3) *
