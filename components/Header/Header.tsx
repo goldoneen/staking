@@ -4,9 +4,12 @@ import { images } from "../../assets/image";
 import { tokenSelector } from "../../store/selectors";
 import { useSelector } from "react-redux";
 import { detectProvider } from "../../api";
+import { useRouter } from 'next/router'
 
 function Header() {
   let depositAmount = useSelector(tokenSelector).depositAmount;
+
+  const router = useRouter()
 
   const checkProviderConnected = async () => {
     if (depositAmount) {
@@ -36,10 +39,10 @@ function Header() {
               />
             </Link>
           </figure>
-          <button className="At-Btn px-5">
+          {(router.pathname !== "/terms-conditions") && <button className="At-Btn px-5">
             Total Balance
-            <br />${depositAmount ? depositAmount : "0.00"}
-          </button>
+            <br />$LFG &nbsp; {depositAmount ? depositAmount : "0.00"}
+          </button>}
         </div>
       </nav>
     </div>

@@ -1247,7 +1247,8 @@ p {
 
 .At-Header {
   padding-top: 1.6rem;
-  padding-bottom: 3.1rem;
+  margin-bottom: -6rem;
+  // padding-bottom: 3.1rem;
   width: 100%;
   position: sticky;
   top: 0;
@@ -3686,4 +3687,21 @@ p {
     }
   }
 }
+
+.At-ContractSection{
+  margin-top: 8rem;
+  h2{
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+  p{
+    margin-bottom: 1rem;
+  }
+  ul li{
+    margin-bottom: 1rem;
+    list-style: disc;
+    margin-left: 1.5rem;
+  }
+}
+
 @import "assets/css/responsive.scss";

@@ -94,7 +94,7 @@ function LandingPage() {
                 </button>
                 <div className='mt-4'>
                   <Link href='/terms-conditions'>
-                    <p className='text-blue cursor-pointer'>Terms and Conditions</p>
+                    <p className='text-blue cursor-pointer'>Terms &amp; Conditions</p>
                   </Link>
                 </div>
               </div>

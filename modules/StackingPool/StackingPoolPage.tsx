@@ -18,7 +18,7 @@ const initStakingData = [
   {
     id: 1,
     role: "Moon Pool",
-    apyDays: 80,
+    apyDays: 90,
     percentage: "60.00",
     finished: true,
     isDeposit: false,
@@ -62,6 +62,7 @@ function StackingPoolPage() {
   const [redeemableAmount, setRedeemableAmount] = useState<string>("");
   const [minAmountToStake, setMinAmountToStake] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const [hideTimeText, setHideTimeText] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -308,9 +309,10 @@ function StackingPoolPage() {
   const handleStackDeposit = () => {
     getUSer();
     getBalance(lp_token);
+    setHideTimeText(false)
   };
 
-  const apy: number = (((13000000 / totalLFGStaked) * 100) / 100);
+  const apy: number = (((8000000 / totalLFGStaked) * 100) / 100);
   const max = 88000;
   return (
     <Fragment>
@@ -408,12 +410,12 @@ function StackingPoolPage() {
                     <div className="row">
                       {adStartBlock > 0 &&
                         depositedAmount &&
-                        Number(depositedAmount) >= 1000 &&
+                        Number(depositedAmount) >= 10000 &&
                         blockNumber &&
                         (process.env
                           .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string) && (
-                          <div className="col-9">
-                            <p>To unlock Avatar NFT air drop</p>
+                          <div className="col">
+                            {!hideTimeText && <p>To unlock Avatar NFT air drop</p>}
                             <button className="At-Btn At-BtnSmall mt-2">
                               <Countdown
                                 date={
@@ -422,12 +424,13 @@ function StackingPoolPage() {
                                     process.env
                                       .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string
                                   ) *
-                                    7.776e+6 -
+                                   86400 -
                                     (Number(blockNumber) -
                                       Number(adStartBlock)) *
                                     3) *
                                   1000
                                 }
+
                                 renderer={({
                                   days,
                                   hours,
@@ -435,8 +438,11 @@ function StackingPoolPage() {
                                   seconds,
                                   completed,
                                 }) => {
+                                  if (completed) {
+                                    setHideTimeText(true)
+                                  }
                                   return (
-                                    <span>
+                                    completed ? <p>NFT has been sent to your wallet</p> : <span>
                                       {Number(days) > 0 ? `${days}d` : ""}{" "}
                                       {hours}h {minutes}m {seconds}s
                                     </span>
