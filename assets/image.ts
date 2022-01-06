@@ -7,6 +7,15 @@ export const images = {
     venus: require('./images/svgs/venus.svg').default,
     jupiter: require('./images/svgs/jupiter.svg').default,
     metaMask:require('./images/others/metaMask.png').default,
-
+    copy: require('./images/copy.png').default,
+    logocopy: require ('./images/logocopy.png').default,
+    userimage: require ('./images/userimg.png').default,
+    metamaskconnect: require ('./images/metamask.png').default,
+    card: require ('./images/card.png').default,
+    arrow: require ('./images/arrow.png').default,
+    ss1:require('./images/svgs/ss1.svg').default,
+    ss2:require('./images/svgs/ss2.svg').default,
+    ss3:require('./images/svgs/ss3.svg').default,
+    ss4:require('./images/svgs/ss4.svg').default,
 } 
 

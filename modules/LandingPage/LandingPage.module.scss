@@ -2,7 +2,7 @@
     background-color: var(--themeWhite2);
     border-radius: 13px;
     text-align: center;
-    padding: 2rem 2rem 3rem;
+    padding: 2rem 2rem 2rem;
     margin-bottom: 15px;
     height: 100%;
     display: flex;
@@ -20,8 +20,8 @@
         font-family: "ProductSans", sans-serif;
     }
     h2 {
-        margin-top: -2rem;
-        margin-bottom: 0.5rem;
+        margin-top: -3rem;
+        margin-bottom: 0.2rem;
     }
     @media (max-width: 991px) {
         padding: 2rem 15px;
@@ -29,18 +29,20 @@
 }
 
 .AtPoolBoxBottom {
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--borderColor);
     width: 100%; 
     ul li {
-        color: var(--grey);
-        margin-bottom: 5px;
+        margin-bottom: 3px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: bold;
+        h4{
+            color: rgb(179, 177, 177);
+        }
         img {
             margin-left: 5px;
         }

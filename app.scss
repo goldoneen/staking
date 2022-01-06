@@ -32,6 +32,9 @@
 }
 @import "assets/css/variables";
 @import "assets/css/mixin";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&display=swap');
 html,
 body,
 #root,
@@ -61,11 +64,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 body {
-  background: var(--lightSky) !important;
+  background: var(--themebg) !important;
   line-height: 1.5;
   font-size: 1rem;
   color: var(--themeBlack);
-  @include productsans-regular;
+  font: 400 14px/23px 'Archivo', Arial, Helvetica, sans-serif;
   h1,
   h2,
   h3,
@@ -73,7 +76,7 @@ body {
   h5,
   h6 {
     margin-bottom: 0;
-    @include productsans-bold;
+    font-family: 'Archivo', sans-serif;
     color: var(--themeBlack);
     line-height: 1.5;
   }
@@ -352,7 +355,7 @@ p {
 
 .At-SectionTitleMedium {
   margin-right: 10px;
-  @include productsans-medium;
+  font-family: 'Archivo', sans-serif;
 }
 
 .At-TitleFormRow {
@@ -448,7 +451,7 @@ p {
   color: var(--white);
   border: none;
   @include bd-radius(13px);
-  @include productsans-bold;
+  font-family: 'Archivo', sans-serif;
   @include transition-basic;
   &:hover {
     background-color: var(--blueHover);
@@ -459,7 +462,7 @@ p {
   background: var(--lightSky);
   padding: 1rem 1.5rem;
   @include bd-radius(13px);
-  @include productsans-bold;
+  font-family: 'Archivo', sans-serif;
   @include transition-basic;
   border: 2px solid var(--blue);
   color: var(--blue);
@@ -510,7 +513,7 @@ p {
   font-size: 1rem;
   @include bd-radius(8px);
   padding: 0.75rem 1.5rem;
-  @include productsans-medium;
+  font-family: 'Archivo', sans-serif;
 }
 
 .At-BtnSmall {
@@ -643,7 +646,7 @@ p {
   border: 2px solid var(--white);
   line-height: 2;
   font-size: 0.9rem;
-  @include productsans-regular;
+  font-family: 'Archivo', sans-serif;
 }
 .ant-avatar {
   height: 2rem;
@@ -838,13 +841,13 @@ p {
 // =-=-=-=-=-fonts =-=-=-=-=-
 
 .At-FRegular {
-  @include productsans-regular;
+  font-family: 'Archivo', sans-serif;
 }
 .At-FBold {
-  @include productsans-bold;
+  font-family: 'Archivo', sans-serif;
 }
 .At-FMedium {
-  @include productsans-medium;
+  font-family: 'Archivo', sans-serif;
 }
 
 .At-px-15 {
@@ -876,7 +879,7 @@ p {
   color: var(--blue);
   font-size: 1rem;
   margin-left: 1.5rem;
-  @include productsans-medium;
+  font-family: 'Archivo', sans-serif;
   cursor: pointer;
 }
 
@@ -886,7 +889,7 @@ p {
   border: none;
   background: none;
   padding: 0;
-  @include productsans-bold;
+  font-family: 'Archivo', sans-serif;
   @include transition-basic;
 }
 .At-LinkBlue {
@@ -961,7 +964,7 @@ p {
     padding: 1.25rem;
   }
   .At-CardTitle {
-    @include productsans-bold;
+    font-family: 'Archivo', sans-serif;
     margin-bottom: 5px;
   }
   .At-CardGrey {
@@ -1246,12 +1249,13 @@ p {
 }
 
 .At-Header {
-  padding-top: 1.6rem;
-  margin-bottom: -6rem;
-  // padding-bottom: 3.1rem;
-  width: 100%;
-  position: sticky;
   top: 0;
+  left: 0;
+  z-index: 11;
+  width: 100%;
+  position: fixed;
+  padding: 15px 48px;
+  background: #14152b;
   .navbar {
     .At-FormControl {
       @include placeholders(var(--grey));
@@ -1263,11 +1267,18 @@ p {
     display: flex;
   }
   .At-Logo {
-    a {
-      display: flex;
+    float: left;
+    a,
+    img{
+      display: block;
     }
-    max-width: 10rem;
-    flex-shrink: 0;
+    img{
+      width: 100%;
+      height: auto;
+      
+    }
+    // max-width: 10rem;
+    // flex-shrink: 0;
   }
 }
 
@@ -1313,7 +1324,7 @@ p {
 
 .navbar-nav {
   a {
-    @include productsans-medium;
+    font-family: 'Archivo', sans-serif;
     font-size: 1rem;
     color: var(--grey) !important;
     position: relative;
@@ -1351,7 +1362,7 @@ p {
     min-width: 8rem;
     display: block;
     text-align: center;
-    @include productsans-medium;
+    font-family: 'Archivo', sans-serif;
     border-radius: 13px 0 0 13px;
     &:hover {
       background: var(--blue);
@@ -1423,7 +1434,7 @@ p {
   .At-FooterLinks {
     li a {
       font-size: 1rem;
-      @include productsans-bold;
+      font-family: 'Archivo', sans-serif;
       color: var(--grey);
       margin-top: 1.5rem;
       display: block;
@@ -1751,7 +1762,7 @@ p {
     align-items: center;
     h5 {
       margin-left: 5px;
-      @include productsans-regular;
+      font-family: 'Archivo', sans-serif;
     }
     &:first-child {
       margin-left: 0;
@@ -1852,7 +1863,7 @@ p {
 
 .At-LoginSecondTitle {
   color: var(--grey);
-  @include productsans-regular;
+  font-family: 'Archivo', sans-serif;
   margin: 1rem 0 1.5rem;
 }
 .ant-message .ant-message-notice-content {
@@ -1948,7 +1959,7 @@ p {
     padding-top: 2rem;
     padding: 2rem 0 2rem 7rem;
     font-size: 1.5rem;
-    @include productsans-regular;
+    font-family: 'Archivo', sans-serif;
     color: var(--grey2);
     display: block;
   }
@@ -1977,7 +1988,7 @@ p {
     margin: 10px 0 5px;
   }
   h3 {
-    @include productsans-regular;
+    font-family: 'Archivo', sans-serif;
     font-size: 1.5rem;
   }
 }
@@ -2196,7 +2207,7 @@ p {
   color: var(--themeBlack) !important;
   transition: 0.3s all !important;
   border-radius: 13px !important;
-  @include productsans-bold;
+  font-family: 'Archivo', sans-serif;
 }
 .create-collectible i {
   font-size: 2.5rem;
@@ -2412,7 +2423,7 @@ p {
   }
   .At-ProfileTabName {
     font-size: 16px;
-    @include productsans-bold;
+    font-family: 'Archivo', sans-serif;
     color: var(--grey);
   }
   .ant-tabs-nav-wrap .ant-tabs-tab-active .At-ProfileTabName {
@@ -2466,7 +2477,7 @@ p {
   margin: 4px;
   // justify-content: space-between;
   p {
-    @include productsans-bold; 
+    font-family: 'Archivo', sans-serif;
   }
   i {
     width: 14px;
@@ -2601,7 +2612,7 @@ p {
   }
   .At-ProfileTabName {
     font-size: 1rem;
-    @include productsans-bold;
+    font-family: 'Archivo', sans-serif;
     color: var(--grey);
   }
   .ant-tabs-nav-wrap .ant-tabs-tab-active .At-ProfileTabName {
@@ -3006,7 +3017,7 @@ p {
         }
         h6{
           color: var(--themeBlack);
-          @include productsans-regular;
+          font-family: 'Archivo', sans-serif;
         }
       }
     }
@@ -3014,7 +3025,7 @@ p {
       margin-bottom: 0.65rem;
     }
     .At-Link{
-      @include productsans-regular;
+      font-family: 'Archivo', sans-serif;
       font-size: 14px;
       margin-top: 0.65rem;
       display: block;
@@ -3052,7 +3063,7 @@ p {
     .At-YoutubeHeading{
       color: var(--blue);
       margin-top: 1rem;
-      @include productsans-medium;
+      font-family: 'Archivo', sans-serif;
     }
   }
  
@@ -3703,5 +3714,505 @@ p {
     margin-left: 1.5rem;
   }
 }
+.At-Header{
+  width: 100%; 
+  float: left;
+}
+.At-AddNavigation{
+  float: right;
+  nav{
+    width: 100%;
+    float: left;
+    .At-TotalLtf{
+      float: left;
+      color: #fff;
+      font-size: 16px;
+      padding: 0 16px;
+      font-weight: 600;
+      line-height: 50px;
+      margin: 0 24px 0 0;
+      background: #21223b;
+      border-radius: 10px;
+      border: 1px solid #383957;
+    }
+    .At-btnconnectmetamask{
+      float: left;
+      color: #fff;
+      font-size: 16px;
+      padding: 0 16px;
+      font-weight: 500;
+      line-height: 50px;
+      margin: 0 24px 0 0;
+      background: #21223b;
+      border-radius: 10px;
+      border: 1px solid #383957;
+      figure{
+        margin: 0 8px 0 0;
+        display: inline-block;
+        vertical-align: middle;
+        img{
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+        span{
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+    .At-Btntotalbalance{
+      float: left;
+      line-height: 68px;
+      padding: 0 12px;
+      margin: 0 24px 0 0;
+    }
+    .At-Profiledropdown{
+      float: left;
+      button{
+        float: left;
+        color: #fff;
+        font-size: 16px;
+        padding: 0 16px;
+        font-weight: 500;
+        line-height: 50px;
+        background: #21223b;
+        border-radius: 10px;
+        border: 1px solid #383957;
+        figure{
+          width: 30px;
+          height: 30px;
+          margin: 0 8px 0 0;
+          display: inline-block;
+          vertical-align: middle;
+          img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+        span{
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+      .dropdown-menu{
+        width: 100%;
+        padding: 12px 8px;
+        border-radius: 10px;
+        background: #14152b;
+        border: 1px solid #20213a;
+        .dropdown-item{
+          color: #fff;
+          display: block;
+          padding: 4px 8px;
+          border-radius: 4px;
+          &:hover{
+            background: #20213a;
+          }
+        }
+      }
+    }
+  }
+}
+.At-sidebarwrapper{
+  left: 0;
+  top: 83px;
+  width: 266px;
+  position: fixed;
+  background: #14152b;
+  height: calc(100vh - 83px);
+  .At-sidebar{
+    width: 100%;
+    float: left;
+    padding: 14px;
+    .At-copyurlarea{
+      width: 100%;
+      float: left;
+      margin: 0 0 26px;
+      border-radius: 5px;
+      border: 1px solid #272740;
+      .At-Url{
+        width: 100%;
+        float: left;
+        padding: 12px;
+        border-radius: 5px;
+        background: #1c1d39;
+        border: 1px solid #272740;
+        span{
+          float: left;
+          color: #fff;
+          font-size: 16px;
+          line-height: 20px;
+          cursor: pointer;
+          font-weight: 500;
+        }
+        .At-btncopyurl{
+          padding: 0;
+          float: right;
+          cursor: pointer;
+          background: none;
+          img{
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+      .At-sidebarltf{
+        width: 100%;
+        float: left;
+        padding: 14px 24px;
+        figure{
+          float: left;
+          img{
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+        span{
+          color: #fff;
+          float: right;
+          font-size: 20px;
+          line-height: 30px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+.At-navigation{
+  width: 100%;
+  float: left;
+  .At-Nav{
+    width: 100%;
+    float: left;
+    ul{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      float: left;
+      list-style: none;
+      li{
+        width: 100%;
+        float: left;
+        padding: 8px 0;
+        list-style-type: none;
+        &:first-child{padding: 0 0 8px;}
+        &:last-child{padding: 8px 0 0;}
+        &.At-Active{
+          a{
+            color: #fff;
+          }
+        }
+        a{
+          width: 100%;
+          float: left;
+          background: #252641;
+          border-radius: 5px;
+          padding: 0 8px;
+          color: #909295;
+          font-size: 16px;
+          line-height: 44px;
+          font-weight: 600;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}
+.At-tounlock{
+  width: 100%;
+  float: left;
+  padding: 20px;
+  p{
+    margin: 0 0 12px;
+    color: #909295;
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: 500;
+  }
+  span{
+    float: left;
+    color: #fff;
+    padding: 0 22px;
+    font-size: 20px;
+    line-height: 42px;
+    font-weight: 500;
+    border-radius: 5px;
+    background: #2F93FF;
+  }
+}
+.At-btncliam{
+  border-radius: 28px;
+  border: 1px solid #2F93FF;
+  background: none;
+}
+.At-claimbtnholder{
+  float: left;
+  padding: 20px;
+  width: 100%;
+  .At-Btn{
+    float: left;
+    color: #fff;
+    padding: 0 10px;
+    font-weight: 500;
+    line-height: 54px;
+    font-size: 16px;
+    text-align: center;
+    min-width: 130px;
+    border-radius: 30px;
+    background: rgb(0,76,255); 
+    background: -moz-linear-gradient(left,  rgba(0,76,255,1) 0%, rgba(125,185,232,1) 100%); 
+    background: -webkit-linear-gradient(left,  rgba(0,76,255,1) 0%,rgba(125,185,232,1) 100%);
+    background: linear-gradient(to right,  rgba(0,76,255,1) 0%,rgba(125,185,232,1) 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004cff', endColorstr='#7db9e8',GradientType=1 );
+
+    & + .At-Btn{
+      float: right;
+      background: rgb(255,0,213);
+      background: -moz-linear-gradient(-45deg,  rgba(255,0,213,1) 0%, rgba(158,12,219,1) 100%); 
+      background: -webkit-linear-gradient(-45deg,  rgba(255,0,213,1) 0%,rgba(158,12,219,1) 100%);
+      background: linear-gradient(135deg,  rgba(255,0,213,1) 0%,rgba(158,12,219,1) 100%); 
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff00d5', endColorstr='#9e0cdb',GradientType=1 );
+
+    }
+  }
+}
+.At-Assetpageholder{
+  width: 100%;
+  float: left; 
+  padding: 140px 34px 0 300px;
+}
+.At-Pagetitle{
+  width: 100%;
+  float: left;
+  padding: 0 0 30px;
+  h2{
+    margin: 0;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 40px;
+  }
+}
+.At-assetcardgrid{
+  clear: both;
+  display: grid;
+  grid-gap: 45px;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.At-Card{
+  width: 100%;
+  float: left;
+  padding: 12px;
+  border-radius: 10px;
+  background: #14152b;
+  border: 1px solid #20213a;
+  .At-cardnumberartea{
+    width: 100%;
+    float: left;
+    padding: 10px;
+    margin: 0 0 12px;
+    border-radius: 5px;
+    background: #14152b;
+    border: 1px solid #20213a;
+    em{
+      float: left;
+      font-size: 16px;
+      padding: 6px 0;
+      color: #2f93ff;
+      line-height: 20px;
+      font-weight: 600;
+      font-style: normal;
+    }
+    span{
+      float: right;
+      color: #fff;
+      font-size: 15px;
+      line-height: 32px;
+      font-weight: 600;
+      padding: 0 15px;
+      text-transform: capitalize;
+      border-radius: 20px;
+      background: #970dff;
+    }
+  }
+  .At-CardImage{
+    width: 100%;
+    float: left;
+    // height: 300px;
+    margin: 0 0 12px;
+    img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+  .At-Carddetail{
+    width: 100%;
+    float: left;
+    h3{
+      color: #fff;
+      font-size: 20px;
+      margin: 0 0 8px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+    span{
+      display: block;
+      color: #7F8FA5;
+      line-height: 20px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    h4{
+      margin: 0;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 24px;
+    }
+  }
+}
+.At-Btnback{
+  float: left;
+  color: #fff;
+  font-size: 16px;
+  line-height: 54px;
+  font-weight: 500;
+  padding: 0 46px;
+  border-radius: 30px;
+  background: #191A34;
+  border: 1px solid #272740;
+  img,
+  span{
+    display: inline-block;
+    vertical-align: middle;
+  }
+  span{padding: 0 0 0 6px;}
+}
+.At-Aboutusholder{
+  width: 100%;
+  float: left;
+}
+.At-Aboutcardarea{
+  width: 450px;
+  float: left;
+}
+.At-Aboutcontent{
+  float: left;
+  padding: 18px 30px;
+  border-radius: 10px;
+  background: #14152b;
+  width: calc(100% - 480px);
+  border: 1px solid #20213a;
+  cursor: pointer;
+  h3{
+    color: #fff;
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 600;
+    margin: 0 0 30px;
+  }
+  .At-Aboutrangebarareahlder{
+    width: 100%;
+    float: left;
+    padding: 0 0 40px;
+    .At-Aboutrangebararea{
+      width: 400px;
+      float: left;
+      span{
+        color: #fff;
+        font-size: 20px;
+        line-height: 23px;
+        font-weight: 600;
+        display: block;
+        padding: 0 0 12px;
+      }
+      .At-rangleslide{
+        width: 100%;
+        float: left;
+        height: 16px;
+        background: #fff;
+        border-radius: 8px;
+        .At-rangetop{
+          width: 50%;
+          float: left;
+          height: 100%;
+          background: #2F93FF;
+          border-radius: 8px;
+          span{
+            float: right;
+            color: #000;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 600;
+          }
+        }
+      }
+      ul{
+        margin: 0;
+        width: 100%;
+        float: left;
+        padding: 8px 0 0;
+        list-style: none;
+        li{
+          float: left;
+          list-style-type: none;
+          & + li{float: right;}
+          span{
+            display: block;
+            color: #2F93FF;
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+  .At-ownerinfo{
+    width: 100%;
+    float: left;
+    h4{
+      color: #7F8FA5;
+      font-size: 20px;
+      margin: 0 0 12px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+    .At-ownerdetail{
+      width: 100%;
+      float: left;
+      padding: 24px;
+      border-radius: 5px;
+      background: #191A34;
+      border: 1px solid #272740;
+      h5{
+        color: #fff;
+        font-size: 28px;
+        line-height: 32px;
+        font-weight: 600;
+        margin: 0 20px 0 0;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      span{
+        color: #2F93FF;
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
 
 @import "assets/css/responsive.scss";

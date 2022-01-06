@@ -2,6 +2,7 @@ import React from 'react'
 
 function TermsConditions() {
     return (
+      <div className="At-Assetpageholder">
         <section className="At-SectionGap-B35 At-ContractSection">
             <div className="container At-Container">
                 <div className="row">
@@ -340,6 +341,7 @@ function TermsConditions() {
                 </div>
             </div>
         </section>
+    </div>
     )
 }
 

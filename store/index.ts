@@ -1,5 +1,5 @@
 // import { createStore, applyMiddleware } from 'redux'
-import { applyMiddleware,  createStore, Store } from '@reduxjs/toolkit'
+import { applyMiddleware, createStore, Store } from '@reduxjs/toolkit'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { persistStore, persistReducer } from 'redux-persist'
 // import storage from 'redux-persist/lib/storage'
@@ -43,7 +43,7 @@ export const makeStore = ({ isServer }: any) => {
 		const persistConfig = {
 			key: 'authType',
 			storage: storage,
-			whitelist: ['tokens']
+			whitelist: ['tokens', 'stats']
 		}
 		const persistedReducer = persistReducer(persistConfig, rootReducers);
 

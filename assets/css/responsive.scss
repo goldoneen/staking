@@ -198,6 +198,13 @@
   }
   .At-Header .At-Logo {
     max-width: 8rem;
+    padding: 9px 0;
+  }
+  .At-sidebarwrapper{
+    top: 72px;
+  }
+  .At-sidebarwrapper{
+    width: 186px;
   }
   .m-l80 {
     margin-left: 3.125rem;
@@ -230,6 +237,18 @@
   .At-gy-15 {
     --bs-gutter-y: 10px;
   }
+  .At-AddNavigation nav .At-TotalLtf,
+  .At-AddNavigation nav .At-btnconnectmetamask,
+  .At-AddNavigation nav .At-Profiledropdown button{
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .At-AddNavigation nav .At-Profiledropdown button figure{
+    width: 30px;
+    height: 30px;
+  }
+  .At-AddNavigation nav .At-btnconnectmetamask figure{width: 30px;}
+  .At-sidebarwrapper .At-sidebar .At-copyurlarea .At-Url span{}
 }
 
 /*------------------------------------------------

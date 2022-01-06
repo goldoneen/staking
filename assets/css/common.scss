@@ -427,3 +427,47 @@ button:disabled{
   background-color: silver;
   color: grey;
 }
+.AtPoolConnectBtn{
+  border-radius: 30px;
+  background: var(--black2);
+  border: 1px solid rgb(63, 63, 63);
+  &:hover{
+    color: white;
+  }
+}
+.AtBlurImage{
+  filter: blur(20px)
+}
+.AtBlueBorderBtn{
+    padding: 0.8rem 1.7rem;
+    background: #21223b;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+  border-radius: 30px;
+  &:hover{
+    color: var(--white);
+  }
+
+}
+.AtQuickViewWrapper{
+  width: 100%;
+  padding-bottom: 1.5rem;
+  .AtQuickView{
+    width: 100%;
+    border-radius: 10px;
+    border: 5px solid var(--blue);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #21223b;
+
+    p{
+      font-size: 1.3rem;
+    };
+    img{
+      width: 50px;
+    }
+
+  }
+}

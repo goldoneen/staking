@@ -6,6 +6,7 @@ import { ethers } from 'ethers'
 import { getGamersePool } from '../../api'
 import Loader from '../../components/Loader/Loader';
 import styles from './Wallet.module.scss';
+import { AddStatAction } from '../../api/bakcend.api'
 
 function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStackDeposit, selectedStakingData, minAmountToStake }: any) {
     const main = 'mian',
@@ -29,6 +30,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
         setLayout(main)
         const tx = await lp_token.approve(process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string, ethers.utils.parseEther(String(amount)).toString())
         await tx.wait()
+        console.log("tx:-=-=-=-=approve:-=-=-=-=-=-=", tx)
         setLoading(false)
         setTitle("Deposit")
         setLayout(deposit)
@@ -40,6 +42,18 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
         setLayout(main)
         const tx = await gamersePool.deposit(ethers.utils.parseEther(String(amount)).toString())
         await tx.wait()
+        console.log("tx:-=-=-=-=deposit:-=-=-=-=-=-=", tx)
+        if (amount) {
+            console.log("amount", amount)
+            let data = {
+                hash: tx.hash,
+                from: tx.from,
+                amount: amount,
+                type: 'deposit'
+            }
+
+            let res = await AddStatAction(data)
+        }
         setLoading(false)
         handleStackDeposit()
         setTitle("Trasnsaction Successful")
@@ -81,16 +95,21 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
             validateAmount(e.target.value)
         }
     }
-    
+
     const updateMaxAmount = () => {
-            setAmount(Number(balance));
-            setMax(max+1)
+        setAmount(Number(balance));
+        setMax(max + 1)
     }
-    useEffect(()=>{
-        if(inputRef && inputRef.current){
+    useEffect(() => {
+        if (inputRef && inputRef.current) {
             inputRef.current.focus();
         }
-    },[max])
+    }, [max])
+
+    // useEffect(() => {
+
+
+    // },[gamersePool])
     const mainLayout = (
         <Fragment>
             <p className='text-grey'>
@@ -129,7 +148,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
 
                 </form>
             </div>
-            <button className='At-LightButton At-FBold w-100 mt-3 text-center' disabled={!isValidAmount || error ? true : false || !amount} onClick={() => getApprove()}>{validatingLoader ? <Loader/> : 'Approve'}</button>
+            <button className='At-LightButton At-FBold w-100 mt-3 text-center' disabled={!isValidAmount || error ? true : false || !amount} onClick={() => getApprove()}>{validatingLoader ? <Loader /> : 'Approve'}</button>
         </Fragment>
     )
 

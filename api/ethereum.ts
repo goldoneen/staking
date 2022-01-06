@@ -43,12 +43,29 @@ export const getGamersePool = () =>
                 GamersePool.abi,
                 signer
             );
+
+            
             resolve({ gamersePool });
             return;
         }
         reject('Install Metamask');
     });
 
+//    export const sendAlert = async () => {
+//         let gamers: any = await getGamersePool()
+
+//         if(gamers.gamersePool){
+//             console.log("aaaa function call hoya")
+//             gamers.gamersePool.on('Deposit', (user: any, amount: any)  => {
+//               console.log("depost socket:--=-=", user, "amount:-=-=", amount)
+//             })
+
+//             gamers.gamersePool.on('Withdraw', (user: any, amount: any)  => {
+//               console.log("claim socket:--=-=", user, "amount:-=-=", amount)
+//             })
+//         }
+//         // Deposit()
+//     }
 
 
 export const getLFG_Token = () =>
