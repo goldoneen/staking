@@ -1449,17 +1449,7 @@ p {
   .At-FooterHeading {
     margin-bottom: 3rem;
   }
-  .At-FooterInput {
-    position: relative;
-    .At-FormControl {
-      padding-right: 9rem;
-    }
-    .At-Btn {
-      position: absolute;
-      right: 0.6rem;
-      top: 0.6rem;
-    }
-  }
+
   .At-FooterLogo {
     max-width: 10rem;
   }
@@ -4021,17 +4011,39 @@ p {
     border-radius: 5px;
     background: #14152b;
     border: 1px solid #20213a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     em{
-      float: left;
-      font-size: 16px;
-      padding: 6px 0;
       color: #2f93ff;
-      line-height: 20px;
+      // line-height: 20px;
       font-weight: 600;
       font-style: normal;
+      width: 15%;
     }
+  .At-FCard{
+    width: 57%;
+    border: 1px solid #20213a;
+    border-radius: 5px;
+    display: flex;
+    position: relative;
+    padding: 0.5rem;
+    input{
+      background: none;
+      border: none;
+      outline: none;
+    }
+    button{
+      position: absolute;
+      right: 5px;
+      background: var(--blue);
+      border-radius: 5px;
+      padding: 0 0.5rem;
+    }
+
+  }
     span{
-      float: right;
       color: #fff;
       font-size: 15px;
       line-height: 32px;
@@ -4040,6 +4052,8 @@ p {
       text-transform: capitalize;
       border-radius: 20px;
       background: #970dff;
+      text-align: center;
+      width: 23%;
     }
   }
   .At-CardImage{

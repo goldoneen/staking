@@ -57,7 +57,7 @@ function LandingPage() {
                 <div className="At-PageTitle">
                   <h1 className="At-ColorBlue">GΛMΞRSΞ Staking Pool</h1>
                   <h3 className="At-FRegular">
-                    Gamerse staking pool for single-sided LFG staking available now!
+                    Staking pool for single asset staking (SAS) is now available for $LFG
                   </h3>
                 </div>
               </div>
@@ -71,7 +71,7 @@ function LandingPage() {
                     <img src={images.pool2.src} alt="" />
                   </figure>
                   <h2 className="At-ColorBlue">Moon Pool</h2>
-                  <h3>90 Days Pool <br /><span className='text-green'>APY</span></h3>
+                  <h3 >90 Days Pool <br /><span className='text-green'>Variable APY</span></h3>
                   <div className={styles.AtPoolBoxBottom}>
                     <ul>
                       <li>

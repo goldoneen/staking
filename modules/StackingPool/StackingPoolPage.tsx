@@ -15,7 +15,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providerListner } from "../../api/ethereum";
 import { statsSelector } from "../../store/selectors";
 import { emptyStatsAction, saveStatsAction } from "../../store/actions/stats.actions";
-import { AddStatAction } from "../../api/bakcend.api";
+import { AddStatAction, GetUSAPrices } from "../../api/bakcend.api";
 
 const initStakingData = [
   {
@@ -178,9 +178,9 @@ function StackingPoolPage() {
       const balance = await data.lp_token.balanceOf(
         process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
       );
-      const user = await data.lp_token.balanceOf(
-        process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
-      );
+      // const user = await data.lp_token.balanceOf(
+      //   process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
+      // );
 
       setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
       onGetGamerPools();
@@ -203,7 +203,10 @@ function StackingPoolPage() {
       ethers.utils.formatEther(await lpToken.balanceOf(signerAddress))
     ).toFixed(2);
     setBalance(signerBalance);
-    dispatch(saveDepositAmountAction(signerBalance));
+    let prices = await GetUSAPrices()
+    console.log("priceS:-=-=", prices)
+    let priceINUse = (Number(signerBalance) * Number(prices.data.price)).toFixed(2)
+    dispatch(saveDepositAmountAction(priceINUse));
   };
 
   const getUSer = async () => {
@@ -451,6 +454,12 @@ function StackingPoolPage() {
                                 : ""}
                             </p>
                           </li>
+                          <li>
+                            <p>
+                            Penalty duration: 30 days
+                            </p>
+                          </li>
+                          
                         </ul>
                       </div>
                     </div>

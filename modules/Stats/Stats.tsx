@@ -1,21 +1,32 @@
+import { message } from "antd";
+import { ethers } from "ethers";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getLP_Token } from "../../api";
 import { GetStatAction } from "../../api/bakcend.api";
 import QuickView from "../../components/QuickView/QuickView";
 import { statsSelector } from "../../store/selectors";
 
+
 export default function Stats() {
     const [stats, setStats] = useState([])
+    const [count, setCount] = useState([])
+    const [lp_token, setLpToken] = useState<any>();
+    const [balance, setBalance] = useState<string>("");
+    const [totalLFGStaked, setTotalLFGStaked] = useState<any>(undefined);
+    const [error, setError] = useState<boolean>(false);
 
     const fetchStats = async () => {
         let res = await GetStatAction()
         if (res.success) {
-            setStats(res.data)
+            setStats(res.data.stats)
+            setCount(res.data.count)
         }
     }
     useEffect(() => {
         fetchStats()
+        setWallet();
     }, [])
 
     const minText = (date: any) => {
@@ -31,9 +42,36 @@ export default function Stats() {
         return `${min} mins`
     }
 
+    const setWallet = async () => {
+        try {
+            let data: any = await getLP_Token();
+            // console.log("lp token:-=-=-=", data);
+            const balance = await data.lp_token.balanceOf(
+                process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
+            );
+            // const user = await data.lp_token.balanceOf(
+            //   process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
+            // );
+
+            setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
+            // onGetGamerPools();
+
+            setLpToken(data.lp_token);
+
+            // getBalance(data.lp_token);
+            setError(false);
+        } catch (error) {
+            setError(true);
+            notify('Please connect to BSC or BSC Testnet');
+
+        }
+    };
+
+    const notify = (value: string) => message.error(value, 2);
+
     return (
         <div className="At-Assetpageholder">
-            <QuickView/>
+            <QuickView totalLFGStaked={totalLFGStaked} count={count}/>
             <div className='At-Pagetitle'>
                 <h2>Gamerse Stats</h2>
             </div>

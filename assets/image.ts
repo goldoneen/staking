@@ -9,6 +9,7 @@ export const images = {
     metaMask:require('./images/others/metaMask.png').default,
     copy: require('./images/copy.png').default,
     logocopy: require ('./images/logocopy.png').default,
+    logo2: require ('./images/logo2.png').default,
     userimage: require ('./images/userimg.png').default,
     metamaskconnect: require ('./images/metamask.png').default,
     card: require ('./images/card.png').default,
