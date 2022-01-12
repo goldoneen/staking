@@ -16,35 +16,27 @@ import AlertPopup from "../../components/Popups/AlertPopup";
 
 export default function About() {
 
-
+    const router = useRouter()
     const startDate = React.useRef(Date.now());
-    const [openStackPopup, setOpenStackPopup] = useState(false);
-    const [claimLoading, setClaimLoading] = useState(false);
-    const [showTime, setShowTime] = useState<boolean>(false);
     const [depositedAmount, setDeposit] = useState("");
-    const [selectedStakingData, setSelectedStakingData] =
-        useState<any>(undefined);
     const [lp_token, setLpToken] = useState<any>();
     const [balance, setBalance] = useState<string>("");
     const [userAdd, setUserAdd] = useState<string>("");
-    const [penaltyFee, setPenaltyFee] = useState<string>("");
-    const [programDuration, setProgramDuration] = useState("");
-    const [minAmountToStake, setMinAmountToStake] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
 
-    const router = useRouter();
 
     const dispatch = useDispatch();
-    const stats = useSelector(statsSelector).stats
 
     const [gamersePool, setGamersePool] = useState<any>(undefined);
     const [totalLFGStaked, setTotalLFGStaked] = useState<any>(undefined);
     const [adStartBlock, setAdStartBlock] = useState<any>(undefined);
     const [blockNumber, setBlockNumber] = useState<any>(undefined);
-    const [showFinishbadge, setShowFinishbadge] = useState(false);
     const [penaltyUntil, setPenaltyUntil] = useState<any>(undefined);
 
     const [showPopup, setShowPop] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const [timePassed, setTimePassed] = useState<number>(0)
+    const totalTime = Number(process.env.NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string) * 24 * 60 * 60 * 1000
 
     useEffect(() => {
         setWallet();
@@ -63,6 +55,7 @@ export default function About() {
 
     const setWallet = async () => {
         try {
+            setLoading(true)
             let data: any = await getLP_Token();
             // console.log("lp token:-=-=-=", data);
             const balance = await data.lp_token.balanceOf(
@@ -81,6 +74,8 @@ export default function About() {
             setError(false);
         } catch (error) {
             setError(true);
+            setLoading(false)
+            setShowPop(true)
             notify('Please connect to BSC or BSC Testnet');
 
         }
@@ -99,15 +94,17 @@ export default function About() {
 
     const getUSer = async () => {
         try {
-            if (!lp_token) return;
+            if (!lp_token) {
+                return
+            };
             const userInfo = await gamersePool.userInfo(
                 await lp_token.signer.getAddress()
             );
             // console.log("user info:--=-=-=-=", userInfo);
             setDeposit(ethers.utils.formatEther(userInfo[0]));
 
-            if (Number(ethers.utils.formatEther(userInfo[0])) < 1000) {
-                alert("You are not eligble for this page")
+            if (Number(ethers.utils.formatEther(userInfo[0])) < 10000) {
+                // alert("You are not eligble for this page")
                 setShowPop(true)
             }
             dispatch(saveStakedAmountAction(ethers.utils.formatEther(userInfo[0])))
@@ -127,13 +124,15 @@ export default function About() {
             // console.log("newAdStartBlock:-=-=-=", newAdStartBlock);
 
             setAdStartBlock(Number(newAdStartBlock));
-            setShowTime(Number(newAdStartBlock) > 0);
+            // setShowTime(Number(newAdStartBlock) > 0);
 
             setPenaltyUntil(staked);
             userInfo.map((hex: any, i: number) => {
                 // console.log("userInfo", i, ethers.utils.formatEther(hex));
             });
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             // console.log("get User error:-=-=", error);
         }
     };
@@ -152,11 +151,10 @@ export default function About() {
             let minAmount = await data.gamersePool.adMinStakeAmount();
             minAmount = ethers.utils.formatEther(minAmount);
 
-            setMinAmountToStake(minAmount);
-            setPenaltyFee(newPenaltyFee);
 
             setGamersePool(data.gamersePool);
         } catch (error) {
+            setLoading(false)
             // console.log("get gamers pool error:-=-=", error);
         }
     };
@@ -175,13 +173,14 @@ export default function About() {
         //   newBlockNumber,
         //   (Number(endNumber) - Number(newBlockNumber.providerBlockNum)) / 26772
         // );
-        setProgramDuration(
-            `${(
-                (Number(endNumber) - Number(newBlockNumber.providerBlockNum)) /
-                26772
-            ).toFixed(2)}`
-        );
+
     };
+
+
+    const onCloseAlertPopup = (val: any) => {
+        router.push('/')
+        setShowPop(val)
+    }
 
 
 
@@ -193,92 +192,117 @@ export default function About() {
                 <div className="At-PageTitle ">
                     <h1 className="At-ColorBlue">Claim Gamerse NFT Avatar</h1>
                 </div>
-                <div className="At-Aboutusholder">
-                    <div className="At-Aboutcardarea">
-                        <Card
-                            userAdd={userAdd}
-                            id={'#12345'}
-                            button={'Genesis'}
-                            image={images.card.src}
-                            title={'Gamerse Avatar nft'}
-                            price={'Price'}
-                            lfg={'500'}
-                            blur
-                        />
-                    </div>
-                    <div className="At-Aboutcontent ms-3">
-                        <h3>About</h3>
-                        <div className="At-Aboutrangebarareahlder">
-                            <div className="At-Aboutrangebararea">
-                                {adStartBlock > 0 &&
-                                    depositedAmount &&
-                                    Number(depositedAmount) >= 1000 &&
-                                    blockNumber &&
-                                    (process.env
-                                        .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string) && (
-
-
-                                        <Countdown
-                                            date={
-                                                startDate.current +
-                                                (Number(
-                                                    process.env
-                                                        .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string
-                                                ) *
-                                                    // 7.776e+6 -
-                                                    86400 -
-                                                    (Number(blockNumber) -
-                                                        Number(adStartBlock)) *
-                                                    3) *
-                                                1000
-                                            }
-
-                                            renderer={({
-                                                days,
-                                                hours,
-                                                minutes,
-                                                seconds,
-                                                completed,
-                                            }) => {
-
-                                                return (
-                                                    completed ? <p>NFT has been sent to your wallet</p> : <span>
-                                                        Drop by{' '}
-                                                        {Number(days) > 0 ? `${days}d` : ""}{" "}
-                                                        {hours}h {minutes}m {seconds}s
-                                                    </span>
-                                                );
-                                            }}
-                                        />
-
-                                    )}
-                                {/* <span>Drop by 04:20:01:54</span> */}
-                                <div className="At-rangleslide">
-                                    <div className="At-rangetop">
-                                        <span>5.50%</span>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <span>Avatar</span>
-                                    </li>
-                                    <li>
-                                        <span>DROP</span>
-                                    </li>
-                                </ul>
+                {loading || showPopup || !lp_token ? <></> :
+                    <div className="At-Aboutusholder">
+                        <div className="At-Aboutcardarea">
+                            <Card
+                                userAdd={userAdd}
+                                id={'#12345'}
+                                button={'Fire 🔥 Edition'}
+                                image={images.card.src}
+                                title={'Gamerse Avatar nft'}
+                                price={'Price'}
+                                lfg={'500'}
+                                blur
+                            />
+                        </div>
+                        <div className="At-Aboutcontent ms-3">
+                            <div className="At-FlexJustify">
+                            <h3>About</h3>
+                            <h3>🔥</h3>
                             </div>
+                            <div style={{ marginBottom: '20px' }}>
+                                <p className="mb-2">
+                                    Introducing Gamerse Fire NFTs; our innovative Avatars which will serve as your profile on the Gamerse ecosystem.
+                                </p>
+                                <p className="mb-2"> Gamerse Fire NFTs have a built-in burn function whereby 5% $LFG value of NFT avatar will be burned upon every sale on the secondary market.</p>
+                                <p className="mb-2"> This revolutionizing feature creates scarcity and adds deflationary pressure increasing the value of the NFT overtime.
+                                </p>
+                                <p className="mb-2">Fire NFTs are claimable when users stake 10,000 $LFG or more, within the first 10 days of our moon pool start date (ending 22nd January 2022).</p>
+
+                                <p className="mb-2">Unlock exclusive Gamerse NFT avatar after staking for full 90 days!</p>
+
+                                <p className="mb-2">Disclaimer: Stake 10,000 LFG or more within the first 10 days of our staking pool,
+                                 to enter NFT airdrop whitelist.</p>
+
+                            </div>
+                            <div className="At-Aboutrangebarareahlder">
+                                <div className="At-Aboutrangebararea">
+
+                                    {adStartBlock > 0 &&
+                                        depositedAmount &&
+                                        Number(depositedAmount) >= 10000 &&
+                                        blockNumber &&
+                                        (process.env
+                                            .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string) && (
+
+
+                                            <Countdown
+                                                date={
+                                                    startDate.current +
+                                                    (Number(
+                                                        process.env
+                                                            .NEXT_PUBLIC_GAMERSE_AIR_DROP_TIME as string
+                                                    ) *
+                                                        // 7.776e+6 -
+                                                        86400 -
+                                                        (Number(blockNumber) -
+                                                            Number(adStartBlock)) *
+                                                        3) *
+                                                    1000
+                                                }
+
+                                                renderer={({
+                                                    total,
+                                                    days,
+                                                    hours,
+                                                    minutes,
+                                                    seconds,
+                                                    completed,
+                                                }) => {
+                                                    // console.log("total:-=-=", total)
+                                                    setTimePassed(total)
+                                                    return (
+                                                        completed ? <p>NFT has been sent to your wallet</p> : <span>
+                                                            Drop by{' '}
+                                                            <span className="At-ColorBlue">{Number(days) > 0 ? `${days}d` : ""}{" "}
+                                                                {hours}h {minutes}m {seconds}s</span>
+                                                        </span>
+                                                    );
+                                                }}
+                                            />
+
+                                        )}
+                                    {/* <span>Drop by 04:20:01:54</span> */}
+                                    <div className="At-rangleslide">
+                                        <div className="At-rangetop" style={{ width: `${Number((((totalTime - timePassed) * 100) / totalTime).toFixed(2))}%` }} >
+                                        </div>
+                                        <span>{(((totalTime - timePassed) * 100) / totalTime).toFixed(2)} %</span>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <span>Avatar</span>
+                                        </li>
+                                        <li>
+                                            <span>Drop</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="At-ownerinfo">
+                                <h4>Pending Owner</h4>
+                                {userAdd && <div className="At-ownerdetail">
+                                    {/* <h5>0xE1...3780</h5> */}
+                                    <span>{userAdd}</span>
+                                </div>}
+                            </div>
+
                         </div>
-                        <div className="At-ownerinfo">
-                            <h4>Pending Owner</h4>
-                            {userAdd && <div className="At-ownerdetail">
-                                {/* <h5>0xE1...3780</h5> */}
-                                <span>{userAdd}</span>
-                            </div>}
-                        </div>
+
                     </div>
-                </div>
+                }
             </div>
-            <AlertPopup show={showPopup} closePopup={setShowPop}/>
+            <AlertPopup show={showPopup} closePopup={onCloseAlertPopup} />
         </Fragment>
     )
 }

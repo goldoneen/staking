@@ -7,6 +7,8 @@ import { getGamersePool } from '../../api'
 import Loader from '../../components/Loader/Loader';
 import styles from './Wallet.module.scss';
 import { AddStatAction } from '../../api/bakcend.api'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStackDeposit, selectedStakingData, minAmountToStake }: any) {
     const main = 'mian',
@@ -23,6 +25,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
     const [error, setError] = useState<string>('');
     const [max, setMax] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
+    const router = useRouter()
 
     const getApprove = async () => {
         setLoading(true)
@@ -113,7 +116,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
     const mainLayout = (
         <Fragment>
             <p className='text-grey'>
-                Unlocking your Gamerse Wallet<br />
+                Unlocking your MetaMask Wallet<br />
                 Please Wait...
             </p>
             <div className="spinner-border text-green mt-4 fs-5" style={{ width: '3rem', height: '3rem' }} role="status">
@@ -158,7 +161,7 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
                 Deposit
             </p>
             <i className="icon-check-fill At-ColorGradient mt-4" style={{ fontSize: '4rem' }}></i>
-            <p className='mt-4 text-black'>{amount} Tokens for Stake</p>
+            <p className='mt-4 text-black'>Deposit {amount} Tokens</p>
             <div className='pb-4'></div>
             <button className='At-LightButton At-FBold w-100 mt-3 text-center' disabled={loading} onClick={() => handleDeposit()}>{loading ? 'Wait...' : 'Deposit'}</button>
         </Fragment>
@@ -167,10 +170,11 @@ function StackToken({ open, onClose, balance, lp_token, gamersePool, handleStack
     const connectedLayout = (
         <Fragment>
             <p className='text-grey'>
-                Successfully Put {amount} Tokens for Stake <br /> Congratulations...
+                Successfully staked {amount} Tokens <br /> Congratulations...
             </p>
             <i className="icon-check-fill At-ColorGradient mt-4" style={{ fontSize: '4rem' }}></i>
-            <p className='mt-4 text-black'>{amount} Tokens for Stake</p>
+            <p className='mt-4 text-black'>{amount} Tokens staked <Link href={"/stats"}><a className='At-LinkBlue'>See transaction</a></Link></p>
+            
             <div className='pb-4'></div>
         </Fragment>
     )

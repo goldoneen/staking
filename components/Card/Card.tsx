@@ -5,7 +5,8 @@ import { AddAvatarAction, GetAvatarAction } from "../../api/bakcend.api"
 export default function Card({ id, button, image, title, price, lfg, blur, userAdd }: any) {
 
     const [name, setName] = useState('')
-    const [avatarData, setAvatarData] = useState(undefined)
+    const [avatarData, setAvatarData] = useState<any>(undefined)
+    const [isFocused, setIsFocused] = useState<boolean>(false)
 
     useEffect(() => {
         if (userAdd) {
@@ -25,7 +26,7 @@ export default function Card({ id, button, image, title, price, lfg, blur, userA
     const onAddName = async () => {
         if (!name) return
 
-        let data = { name, userAddress: userAdd }
+        let data = { name, userAddress: userAdd, ...(avatarData?._id ? { id: avatarData._id } : null) }
 
         let res = await AddAvatarAction(data)
         fetchAvatar()
@@ -35,11 +36,11 @@ export default function Card({ id, button, image, title, price, lfg, blur, userA
 
         <div className="At-Card">
             <div className="At-cardnumberartea">
-                <em>{id}</em>
+             <em>{avatarData && avatarData._id ? `#${avatarData._id.slice(avatarData._id.length - 4, avatarData._id.length)}` : 'Pending'}</em>
                 <div className="At-FCard">
-                    <input type="text" placeholder="Add Avatar Name" className="AtCardInput" value={name} onChange={(e) => setName(e.target.value)} />
-                    {!avatarData && <button className="At-FCardBtn" onClick={() => onAddName()}>
-                        Add
+                    <input type="text" placeholder="Add Avatar Name" className="AtCardInput" value={name} onChange={(e) => setName(e.target.value)} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+                    {isFocused && <button className="At-FCardBtn" onClick={() => onAddName()}>
+                        Save
                     </button>}
                 </div>
                 <span>{button}</span>

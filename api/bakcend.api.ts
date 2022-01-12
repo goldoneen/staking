@@ -12,9 +12,9 @@ export const AddStatAction = async (body: any) => {
 }
 
 
-export const GetStatAction = async () => {
+export const GetStatAction = async (data: any) => {
     try {
-        let res = await axios.get(`${url}/stat`)
+        let res = await axios.get(`${url}/stat`, { params: data })
         return { success: true, data: res.data }
     } catch (error) {
         console.log("error:", error)

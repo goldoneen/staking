@@ -77,7 +77,7 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
         >
             <div className="At-ConnectWalletPopup">
                 <p className='text-grey'>
-                    Staking withdraw disclaimer: Early withdraw will result in 50% of incured profits burned
+                    Early withdrawal disclaimer: <small>Early withdrawal within the first 30 days will result in 50% of rewards being burned.</small>
                 </p>
                 {!loading && <>
                     <form className="w-100 mt-4">

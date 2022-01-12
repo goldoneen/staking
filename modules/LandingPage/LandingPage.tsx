@@ -55,7 +55,7 @@ function LandingPage() {
             <div className="row ">
               <div className="col-12">
                 <div className="At-PageTitle">
-                  <h1 className="At-ColorBlue">GΛMΞRSΞ Staking Pool</h1>
+                  <h1 className="At-ColorBlue ">GΛMΞRSΞ Staking Pool</h1>
                   <h3 className="At-FRegular">
                     Staking pool for single asset staking (SAS) is now available for $LFG
                   </h3>
@@ -72,25 +72,20 @@ function LandingPage() {
                   </figure>
                   <h2 className="At-ColorBlue">Moon Pool</h2>
                   <h3 >90 Days Pool <br /><span className='text-green'>Variable APY</span></h3>
+                  <h4>Pool Starts: 12th Jan 2022 @ 3PM UTC</h4>
                   <div className={styles.AtPoolBoxBottom}>
                     <ul>
                       <li>
                         <h4>
-
-                          Unlock exclusive Gamerse
+                          Unlock exclusive Gamerse  NFT avatar after staking for full 90 days!
                         </h4>
                       </li>
                       <li>
-                        <h4>
-
-                          NFT avatar after
-                        </h4>
+                        <h6 className='At-ColorBlue'>
+                      <small>Stake 10,000 LFG or more within the first 10 days of our staking pool, to enter NFT airdrop whitelist.</small>
+                        </h6>
                       </li>
-                      <li>
-                        <h4>
-                          staking for full 90 days!
-                        </h4>
-                      </li>
+                    
                     </ul>
                   </div>
                   {lp_token ? <button className="At-Btn AtPoolConnectBtn At-Btn200 " onClick={() => router.push('/StakingPool')}>

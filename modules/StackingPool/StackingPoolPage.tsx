@@ -123,6 +123,7 @@ function StackingPoolPage() {
 
     let newBlockNumber: any = await getBlockNumber();
     setBlockNumber(Number(newBlockNumber.providerBlockNum));
+    console.log("end numbers:-=-=", endNumber, "block number:-=-=-=", Number(newBlockNumber.providerBlockNum))
     // console.log(
     //   "programDuration:-=-=-=",
     //   newBlockNumber,
@@ -130,8 +131,7 @@ function StackingPoolPage() {
     // );
     setProgramDuration(
       `${(
-        (Number(endNumber) - Number(newBlockNumber.providerBlockNum)) /
-        26772
+        (Number(endNumber) - Number(newBlockNumber.providerBlockNum)) * 3
       ).toFixed(2)}`
     );
   };
@@ -174,15 +174,15 @@ function StackingPoolPage() {
   const setWallet = async () => {
     try {
       let data: any = await getLP_Token();
-      // console.log("lp token:-=-=-=", data);
-      const balance = await data.lp_token.balanceOf(
-        process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
-      );
+      console.log("lp token:-=-=-=", data);
+      if (!data || !data.lp_token) return
+      const balance = await data.lp_token.balanceOf(process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string);
       // const user = await data.lp_token.balanceOf(
       //   process.env.NEXT_PUBLIC_GAMERSE_GAMERSE_POOL_ADDRESS as string
       // );
 
       setTotalLFGStaked(Number(ethers.utils.formatEther(balance)).toFixed(2));
+
       onGetGamerPools();
 
       setLpToken(data.lp_token);
@@ -197,16 +197,21 @@ function StackingPoolPage() {
   };
 
   const getBalance = async (lpToken: any) => {
-    const signerAddress = await lpToken.signer.getAddress();
-    setUserAdd(signerAddress);
-    const signerBalance = Number(
-      ethers.utils.formatEther(await lpToken.balanceOf(signerAddress))
-    ).toFixed(2);
-    setBalance(signerBalance);
-    let prices = await GetUSAPrices()
-    console.log("priceS:-=-=", prices)
-    let priceINUse = (Number(signerBalance) * Number(prices.data.price)).toFixed(2)
-    dispatch(saveDepositAmountAction(priceINUse));
+    try {
+
+      const signerAddress = await lpToken.signer.getAddress();
+      setUserAdd(signerAddress);
+      const signerBalance = Number(
+        ethers.utils.formatEther(await lpToken.balanceOf(signerAddress))
+      ).toFixed(2);
+      setBalance(signerBalance);
+      let prices = await GetUSAPrices()
+      console.log("priceS:-=-=", prices)
+      let priceINUse = (Number(signerBalance) * Number(prices.data.price)).toFixed(2)
+      dispatch(saveDepositAmountAction(priceINUse));
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const getUSer = async () => {
@@ -257,7 +262,7 @@ function StackingPoolPage() {
       // let withdraw = await data.gamersePool.withdrawLock()
 
       let minAmount = await data.gamersePool.adMinStakeAmount();
-      minAmount = ethers.utils.formatEther(minAmount);
+      minAmount = Number(ethers.utils.formatEther(minAmount)).toFixed(0);
 
       setMinAmountToStake(minAmount);
       setPenaltyFee(newPenaltyFee);
@@ -365,7 +370,7 @@ function StackingPoolPage() {
   }
 
 
-  const apy: number = (((8000000 / totalLFGStaked) * 100) / 100);
+  const apy: number = (((8000000 / totalLFGStaked) * 100));
   const max = 88000;
   return (
     <div className='At-Assetpageholder'>
@@ -374,14 +379,14 @@ function StackingPoolPage() {
           <div className="row">
             <div className="col-12">
               <div className="At-PageTitle">
-              <h1 className="At-ColorBlue">GΛMΞRSΞ Staking Pool</h1>
+                <h1 className="At-ColorBlue">GΛMΞRSΞ Staking Pool</h1>
 
               </div>
             </div>
           </div>
         </div>
         <div className={`container At-Container1020 At-ContainerStakPool`}>
-          <div className="row g-4 justify-content-center mt-5">
+          <div className="row g-4 justify-content-center ">
             {StakingData.map((stack: any, i: number) => (
               <div className="col-6 col-md-4 col-lg-4 mt-5" key={i}>
                 <div className={styles.AtStakingCard}>
@@ -456,10 +461,15 @@ function StackingPoolPage() {
                           </li>
                           <li>
                             <p>
-                            Penalty duration: 30 days
+                              Penalty duration: 30 days
                             </p>
                           </li>
-                          
+                          <li>
+                            <p>
+                              Pool Ends: {programDuration ? (Number(programDuration) / 86400).toFixed(0) : 0} days
+                            </p>
+                          </li>
+
                         </ul>
                       </div>
                     </div>
@@ -539,7 +549,7 @@ function StackingPoolPage() {
                       </div>
                       {Number(depositedAmount) > 0 && (
                         <>
-                          <div className="col-6 px-1 mt-2">
+                          <div className="col-6 px-1 mt-3">
                             <button
                               className="At-Btn At-BtnFull"
                               type="button"
@@ -551,7 +561,7 @@ function StackingPoolPage() {
                               {"Unstake"}
                             </button>
                           </div>
-                          <div className="col-6 p-0 mt-2 px-1">
+                          <div className="col-6 p-0 mt-3 px-1">
                             <button
                               className="At-Btn At-BtnFull AtBtnPurple"
                               type="button"

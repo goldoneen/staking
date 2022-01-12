@@ -43,7 +43,7 @@ export const makeStore = ({ isServer }: any) => {
 		const persistConfig = {
 			key: 'authType',
 			storage: storage,
-			whitelist: ['tokens', 'stats']
+			whitelist: []
 		}
 		const persistedReducer = persistReducer(persistConfig, rootReducers);
 
