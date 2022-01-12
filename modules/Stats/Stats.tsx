@@ -175,7 +175,7 @@ export default function Stats() {
                             {stats && stats.length > 0 && [...stats].map((s: any, index: number) => {
                                 return (
                                     <tr key={index}>
-                                        <td><a href={`https://testnet.bscscan.com/tx/${s.hash}`} target={'_blank'}>{s.hash.slice(0, 32)}...</a></td>
+                                        <td><a href={`https://bscscan.com/tx/${s.hash}`} target={'_blank'}>{s.hash.slice(0, 32)}...</a></td>
                                         <td>{s.type}</td>
                                         <td><small>{minText(s.createdAt)} ago</small></td>
                                         <td>{s.from}</td>

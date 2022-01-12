@@ -141,7 +141,7 @@ function Header() {
         <nav>
 
 
-          <button className="At-TotalLtf">TVL:   {count ? count : 0}  LFG</button>
+          <button className="At-TotalLtf">TVL:   {totalLFGStaked ? totalLFGStaked : 0}  LFG</button>
 
           <button className="At-TotalLtf">Total stakers:   {count ? count : 0}</button>
 
