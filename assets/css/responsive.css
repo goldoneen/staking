@@ -60,6 +60,22 @@
 /*------------------------------------------------
 1601
 ------------------------------------------------*/
+@media (max-width: 1601px) {
+  .rt-tableholder {
+    overflow: auto !important;
+    width: 100% !important;
+    float: left !important;
+    -webkit-box-flex: 0 !important;
+        -ms-flex: none !important;
+            flex: none !important;
+  }
+  .rt-tableholder table {
+    width: 100% !important;
+    min-width: 1199px !important;
+    overflow: auto !important;
+  }
+}
+
 /*------------------------------------------------
 1500
 ------------------------------------------------*/
@@ -140,6 +156,12 @@
   }
 }
 
+@media (max-width: 1300px) {
+  .At-Aboutcontent .At-Aboutrangebarareahlder .At-Aboutrangebararea {
+    width: 100%;
+  }
+}
+
 /*------------------------------------------------
 1200
 ------------------------------------------------*/
@@ -192,6 +214,21 @@
   }
   .At-Header .At-Logo {
     max-width: 8rem;
+    padding: 9px 0;
+  }
+  .At-sidebarwrapper {
+    top: 72px;
+    width: 236px;
+    height: calc(100vh - 72px);
+  }
+  .At-Assetpageholder {
+    padding: 110px 34px 0 260px;
+  }
+  .At-sidebarwrapper .AtSidebarSocial li {
+    margin-left: 0.5rem;
+  }
+  .At-sidebarwrapper .AtSidebarSocial li:first-child {
+    margin-left: 0;
   }
   .m-l80 {
     margin-left: 3.125rem;
@@ -221,11 +258,106 @@
   .At-gy-15 {
     --bs-gutter-y: 10px;
   }
+  .At-AddNavigation nav .At-TotalLtf,
+  .At-AddNavigation nav .At-btnconnectmetamask,
+  .At-AddNavigation nav .At-Profiledropdown button {
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .At-AddNavigation nav .At-Profiledropdown button figure {
+    width: 30px;
+    height: 30px;
+  }
+  .At-AddNavigation nav .At-btnconnectmetamask figure {
+    width: 30px;
+  }
 }
 
 /*------------------------------------------------
 1059
 ------------------------------------------------*/
+@media screen and (max-width: 991px) {
+  .rt-btnsidebartoggle {
+    display: block;
+  }
+  .At-sidebarwrapper {
+    top: 106px;
+    left: -100%;
+    z-index: 1;
+    height: calc(100vh - 106px);
+  }
+  .At-sidebarwrapper.rt-showsidebar {
+    left: 0;
+  }
+  .At-Assetpageholder {
+    padding: 120px 20px 0 20px;
+  }
+  .At-Header .At-Logo {
+    float: none;
+    padding: 0;
+    width: 108px;
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0 auto 16px;
+  }
+  .At-AddNavigation {
+    width: 100%;
+  }
+  .At-AddNavigation nav {
+    text-align: center;
+  }
+  .At-AddNavigation nav .At-TotalLtf {
+    float: none;
+    margin: 0 12px 0 0;
+    display: inline-block;
+  }
+  .At-AddNavigation nav .At-TotalLtf:last-child {
+    margin: 0;
+  }
+  .At-Header {
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .At-AddNavigation nav .At-TotalLtf {
+    margin: 4px;
+    font-size: 12px;
+    line-height: 30px;
+    min-width: auto;
+    padding: 0 8px;
+    width: calc(50% - 8px);
+    min-width: auto;
+  }
+  .At-AddNavigation nav .At-TotalLtf:last-child {
+    margin: 4px;
+  }
+  .At-Assetpageholder {
+    padding: 160px 12px 0 12px;
+  }
+  .At-sidebarwrapper {
+    top: 144px;
+    height: calc(100vh - 144px);
+  }
+  .at-pagetitleblock {
+    display: block;
+  }
+  .at-pagetitleblock h2 {
+    width: 100%;
+    font-size: 24px;
+  }
+  .at-pagetitleblock .At-Input,
+  .at-pagetitleblock .At-SelectHolder {
+    width: calc(50% - 8px);
+    margin: 4px;
+    float: left;
+  }
+  .At-PageTitle h1 {
+    font-size: 1.8rem !important;
+  }
+}
+
 /*------------------------------------------------
 1024
 ------------------------------------------------*/
@@ -469,6 +601,13 @@
   .At-DetailJoinButtonGradient {
     padding: 0.7rem 0.1rem !important;
   }
+  .At-Aboutcardarea {
+    width: 100%;
+  }
+  .At-Aboutcontent {
+    width: 100%;
+    margin: 30px 0 0 !important;
+  }
 }
 
 /*------------------------------------------------
@@ -624,6 +763,26 @@
   }
   .At-DetailJoinButtonGradient {
     padding: 0.45rem 0.1rem !important;
+  }
+  .At-Card .At-cardnumberartea {
+    display: block;
+    position: relative;
+  }
+  .At-Card .At-cardnumberartea em {
+    float: left;
+    width: auto;
+  }
+  .At-Card .At-cardnumberartea .At-FCard {
+    width: 100%;
+    float: left;
+    display: block;
+    margin: 10px 0 0;
+  }
+  .At-Card .At-cardnumberartea span {
+    right: 0;
+    top: 5px;
+    width: auto;
+    position: absolute;
   }
 }
 

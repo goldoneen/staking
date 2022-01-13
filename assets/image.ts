@@ -18,5 +18,5 @@ export const images = {
     ss2:require('./images/svgs/ss2.svg').default,
     ss3:require('./images/svgs/ss3.svg').default,
     ss4:require('./images/svgs/ss4.svg').default,
-} 
-
+    menu:require('./images/menu.svg').default,
+}   

@@ -388,7 +388,7 @@ function StackingPoolPage() {
         <div className={`container At-Container1020 At-ContainerStakPool`}>
           <div className="row g-4 justify-content-center ">
             {StakingData.map((stack: any, i: number) => (
-              <div className="col-6 col-md-4 col-lg-4 mt-5" key={i}>
+              <div className="col-md-8 col-lg-6 col-xl-4 mt-5" key={i}>
                 <div className={styles.AtStakingCard}>
                   <div className={styles.AtCardTop}>
                     <div className="row">

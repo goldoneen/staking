@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import QuickView from "../QuickView/QuickView";
 import Link from "next/link";
 
+
 function Header() {
   let depositAmount = useSelector(tokenSelector).depositAmount;
 
@@ -111,6 +112,24 @@ function Header() {
     }
   };
 
+  const convertTotalLfg = (amount: any) => {
+    let k = 1000
+    let m = k * 1000
+    let b = m * 1000
+
+    if (amount >= b) {
+      return `${(Number(amount) / b).toFixed(2)}B`
+    }
+    if (amount >= m) {
+      return `${(Number(amount) / m).toFixed(2)}M`
+    }
+
+    if (amount >= k) {
+      return `${(Number(amount) / k).toFixed(2)}K`
+    }
+    return `${(Number(amount).toFixed(2))}`
+  }
+
   checkProviderConnected();
 
   useEffect(() => {
@@ -123,8 +142,20 @@ function Header() {
       getDepositAmount(lp_token)
     }
   }, [depositAmount])
+
+  const sideBarClassToggler = () => {
+    const el = document.getElementById('sideBar');
+
+    if(el){
+      el.classList.toggle("rt-showsidebar");
+    }
+
+  }
   return (
     <header className="At-Header">
+      <button className="rt-btnsidebartoggle" onClick={sideBarClassToggler}>
+        <img src={images.menu.src} alt="" />
+      </button>
       <strong className="At-Logo">
         <Link href="/">
           <a>
@@ -141,7 +172,7 @@ function Header() {
         <nav>
 
 
-          <button className="At-TotalLtf">TVL:   {totalLFGStaked ? totalLFGStaked : 0}  LFG</button>
+          <button className="At-TotalLtf">TVL:   {totalLFGStaked ? convertTotalLfg(totalLFGStaked) : 0}  </button>
 
           <button className="At-TotalLtf">Total stakers:   {count ? count : 0}</button>
 

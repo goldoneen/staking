@@ -26,11 +26,19 @@ export default function Sidebar() {
     useEffect(() => {
         fetchPrice()
     }, [])
+    const sideBarClassHide = () => {
+        const el = document.getElementById('sideBar');
+    
+        if(el){
+          el.classList.remove("rt-showsidebar");
+        }
+    
+      }
     return (
-        <aside className='At-sidebarwrapper At-HideScroller'>
+        <aside className='At-sidebarwrapper At-HideScroller' id="sideBar">
             <div className='At-sidebar'>
-                {token.userAddress && <div className='At-copyurlarea'>
-                    <div className='At-Url'>
+                {token.userAddress && <div className='At-copyurlarea' >
+                    <div className='At-Url'  onClick={sideBarClassHide}>
                         <span onClick={() => router.push('/StakingPool')}>{token.userAddress ? `${token.userAddress.slice(0, 11)}...` : `Connect Wallet`}</span>
 
                          <CopyToClipboard text={token.userAddress}
@@ -53,18 +61,18 @@ export default function Sidebar() {
                 <div className='At-navigation'>
                     <nav className='At-Nav'>
                         <ul>
-                            <li className={router.pathname === "/StakingPool" ? 'At-Active' : ''}>
+                            <li className={router.pathname === "/StakingPool" ? 'At-Active' : ''}  onClick={sideBarClassHide}>
                                 <Link href="/StakingPool">
                                     <a>Staking</a>
                                 </Link>
                             </li>
-                            <li className={router.pathname === "/Assets" ? 'At-Active' : ''}>
+                            <li className={router.pathname === "/Assets" ? 'At-Active' : ''}  onClick={sideBarClassHide} >
                                 <Link href="/Assets">
                                     <a>Avatar Assets</a>
                                 </Link>
                             </li>
 
-                            <li className={router.pathname === "/stats" ? 'At-Active' : ''}>
+                            <li className={router.pathname === "/stats" ? 'At-Active' : ''}  onClick={sideBarClassHide}>
                                 <Link href="/stats">
                                     <a>Stats</a>
                                 </Link>
@@ -75,14 +83,14 @@ export default function Sidebar() {
                                 </Link>
                             </li> */}
                             <li>
-                                <a href="https://docsend.com/view/kidq2cwt8uqpe3se" target="_blank" rel="noreferrer"> LFG tokenomics</a>
+                                <a href="https://docsend.com/view/kidq2cwt8uqpe3se" target="_blank" rel="noreferrer"   onClick={sideBarClassHide}> LFG tokenomics</a>
                             </li>
                         </ul>
                     </nav>
                 </div>
 
             </div>
-            <div className="AtSidebarFooter">
+            <div className="AtSidebarFooter"  onClick={sideBarClassHide}>
                 <div className="AtSidebarFooterInner">
                     <div className="AtSidebarImg">
                         <figure>

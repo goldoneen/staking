@@ -65,7 +65,7 @@ function LandingPage() {
           </div>
           <div className="container At-Container1275">
             <div className="row g-4 justify-content-center">
-              <div className="col-md-4">
+              <div className="col-md-8 col-lg-6 col-xl-4">
                 <div className={styles.AtPoolBox}>
                   <figure>
                     <img src={images.pool2.src} alt="" />

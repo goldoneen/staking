@@ -118,7 +118,7 @@ export default function Stats() {
     return (
         <div className="At-Assetpageholder">
             {/* <QuickView totalLFGStaked={totalLFGStaked} count={count} /> */}
-            <div className='At-Pagetitle AtPagetitleInput'>
+            <div className='At-Pagetitle at-pagetitleblock AtPagetitleInput'>
                 <h2>Recent transactions</h2>
                 <div className="At-SelectHolder">
                     <select className="form-select At-Select" aria-label="Default select example" value={filter} onChange={onChangeFilter}>
@@ -136,7 +136,7 @@ export default function Stats() {
                     <i className="fas fa-table me-1"></i>
                     
                 </div> */}
-                <div className="card-body">
+                <div className="card-body rt-tableholder">
                     <table id="datatablesSimple" className="table table-striped table-dark">
                         <thead>
                             <tr>
