@@ -72,7 +72,7 @@ function LandingPage() {
                   </figure>
                   <h2 className="At-ColorBlue">Moon Pool</h2>
                   <h3 >90 Days Pool <br /><span className='text-green'>Variable APY</span></h3>
-                  <h4>Pool Starts: 12th Jan 2022 @ 3PM UTC</h4>
+                  <h4>Pool Started: 12th Jan 2022 @ 3PM UTC</h4>
                   <div className={styles.AtPoolBoxBottom}>
                     <ul>
                       <li>
