@@ -16,6 +16,8 @@ import { providerListner } from "../../api/ethereum";
 import { statsSelector } from "../../store/selectors";
 import { emptyStatsAction, saveStatsAction } from "../../store/actions/stats.actions";
 import { AddStatAction, GetUSAPrices } from "../../api/bakcend.api";
+import { UniversalModal } from "../../components/Modal/UniversalModal";
+import Link from "next/link";
 
 const initStakingData = [
   {
@@ -48,7 +50,11 @@ function StackingPoolPage() {
   // const { Countdown } = Statistic;
   const startDate = React.useRef(Date.now());
   const [openStackPopup, setOpenStackPopup] = useState(false);
-  const [claimLoading, setClaimLoading] = useState(false);
+  const [claimModal, setClaimModal] = useState({
+    open: false,
+    loading: false,
+    success: false
+  });
   const [showTime, setShowTime] = useState<boolean>(false);
   const [depositedAmount, setDeposit] = useState("");
   const [StakingData, setStakingData] = useState([...initStakingData]);
@@ -139,7 +145,11 @@ function StackingPoolPage() {
   const onClickClaim = async () => {
     // console.log("run claim:-=-=-=");
     if (!gamersePool) return;
-    setClaimLoading(true);
+    setClaimModal({
+      ...claimModal,
+      open: true,
+      loading: true
+    });
     const tx = await gamersePool.withdraw(0);
     await tx.wait();
 
@@ -151,7 +161,12 @@ function StackingPoolPage() {
     }
 
     let res = await AddStatAction(data)
-    setClaimLoading(false);
+    setClaimModal({
+      ...claimModal,
+      open: true,
+      loading: false,
+      success: true
+    });
     setPendingRewards("0.0000");
   };
 
@@ -608,6 +623,40 @@ function StackingPoolPage() {
           onClose={closeConnectedWallet}
         />
       )}
+
+
+      {claimModal.open && <UniversalModal open={claimModal.open} title="Claiming" onClose={() => setClaimModal({
+        open: false,
+        loading: false,
+        success: false
+      })}>
+        <div className="At-ConnectWalletPopup">
+          <Fragment>
+            {claimModal.loading &&
+              <>
+                <p className='text-grey'>
+                  Claim token is in progress<br />
+                  Please Wait...
+                </p>
+                <div className="spinner-border text-green mt-4 fs-5" style={{ width: '3rem', height: '3rem' }} role="status">
+                </div>
+                <p className='fs-6 mt-3 text-black' >Loading</p>
+                <div className='pb-4'></div>
+              </>
+            }
+
+            {claimModal.success && <>
+              <p className='text-grey'>
+                Successfully Claimed <br /> Congratulations...
+              </p>
+              <i className="icon-check-fill At-ColorGradient mt-4" style={{ fontSize: '4rem' }}></i>
+              <p className='mt-4 text-black'>{pendingRewards} Tokens claimed <Link href={"/stats"}><a className='At-LinkBlue'>See transaction</a></Link></p>
+
+              <div className='pb-4'></div>
+            </>}
+          </Fragment>
+        </div>
+      </UniversalModal>}
     </div>
   );
 }

@@ -133,13 +133,14 @@ function Header() {
   checkProviderConnected();
 
   useEffect(() => {
-    setTimeout(() => { getTotolSupply() }, 2000)
+    getTotolSupply()
     fetchStats()
   }, [])
 
   useEffect(() => {
     if (lp_token && depositAmount) {
-      getDepositAmount(lp_token)
+      getTotolSupply()
+      // getDepositAmount(lp_token)
     }
   }, [depositAmount])
 

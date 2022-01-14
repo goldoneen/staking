@@ -24,7 +24,8 @@ function LandingPage() {
     let data: any = await getLP_Token()
     console.log("Data:-=-=", data)
     if (data.success) {
-      const signerAddress = await data.lp_token.signer.getAddress();
+      const signerAddress = (window.ethereum as any).selectedAddress
+      console.log("signed address:--=-=", signerAddress)
       setUserAdd(signerAddress);
       dispatch(saveUserAddressAction(signerAddress))
       setWallet(data.lp_token)
@@ -72,7 +73,7 @@ function LandingPage() {
                   </figure>
                   <h2 className="At-ColorBlue">Moon Pool</h2>
                   <h3 >90 Days Pool <br /><span className='text-green'>Variable APY</span></h3>
-                  <h4>Pool Started: 12th Jan 2022 @ 3PM UTC</h4>
+                  <h4>Pool started: 12th Jan 2022 @ 3PM UTC</h4>
                   <div className={styles.AtPoolBoxBottom}>
                     <ul>
                       <li>
