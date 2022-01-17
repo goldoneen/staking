@@ -10,6 +10,7 @@ import { wrapper } from "../store";
 import { useStore, Provider } from "react-redux";
 import { Fragment } from 'react'
 import Header from '../components/Header/Header'
+import Sidebar from '../components/Sidebar/Sidebar'
 import DarkThemeButton from '../components/DarkThemeButton/DarkThemeButton';
 
 function MyApp({ Component, pageProps }: any) {
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: any) {
       (<PersistGate persistor={store.__persistor}>
         <Fragment>
           <Header />
+          <Sidebar />
           <Component {...pageProps} />
           <DarkThemeButton />
         </Fragment>

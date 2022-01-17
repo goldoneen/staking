@@ -199,6 +199,44 @@
             "anonymous": false,
             "inputs": [
                 {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardClaimed",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "account",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "RewardPenalized",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
                     "indexed": false,
                     "internalType": "uint256",
                     "name": "blockNumber",
@@ -226,6 +264,19 @@
             ],
             "name": "Withdraw",
             "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "DEFAULT_MAX_STAKING_AMOUNT",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
         },
         {
             "inputs": [],
@@ -367,6 +418,19 @@
         {
             "inputs": [],
             "name": "lastRewardBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "maxStakeAmount",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -527,9 +591,15 @@
         },
         {
             "inputs": [],
-            "name": "stopReward",
-            "outputs": [],
-            "stateMutability": "nonpayable",
+            "name": "totalStakedAmount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -554,6 +624,19 @@
                 }
             ],
             "name": "updateCustodyAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "updateMaxStakeAmount",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"

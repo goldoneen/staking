@@ -2,7 +2,9 @@
 
 const initialState: any = {
   lp_token: null,
-  depositAmount: ''
+  depositAmount: '',
+  userAddress: '',
+  stakedAmount: ''
 };
 
 export const tokenReducer = (state = initialState, action: any): any => {
@@ -13,6 +15,12 @@ export const tokenReducer = (state = initialState, action: any): any => {
     case 'SAVE_DEPOSIT_AMOUNT':
 
       return { ...state, depositAmount: action.payload };
+    case 'SAVE_USER_ADDRESS':
+
+      return { ...state, userAddress: action.payload };
+    case 'SAVE_STAKED_AMOUNT':
+
+      return { ...state, stakedAmount: action.payload };
     default:
       return state;
   }

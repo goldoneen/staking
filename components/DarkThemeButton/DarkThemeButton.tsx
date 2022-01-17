@@ -23,7 +23,7 @@ const DarkThemeButton = () => {
 
   return (
     <section className="At-SectionDarkTheme">
-      <div className="container At-Container">
+      {/* <div className="container At-Container">
         <div className="row">
           <div className="col-12" onClick={() => onDarkModeToggle()}>
             <button className="At-Btn At-BtnDarkMode">
@@ -34,7 +34,7 @@ const DarkThemeButton = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

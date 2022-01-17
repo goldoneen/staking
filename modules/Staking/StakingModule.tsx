@@ -195,6 +195,8 @@ function StakingModule() {
     }
 
     return (
+      <div className="At-Assetpageholder">
+
         <section className="At-SectionGap-B35 ">
             <div className="container At-Container">
                 <div className="row">
@@ -275,6 +277,7 @@ function StakingModule() {
                 </div>
             </div>
         </section>
+    </div>
     )
 }
 

@@ -1,6 +1,7 @@
 import { Modal } from 'antd';
 import { ethers } from 'ethers';
 import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { AddStatAction } from '../../api/bakcend.api';
 import styles from './Wallet.module.scss'
 
 function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmount, handleStackDeposit }: any) {
@@ -23,6 +24,18 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
         if (!gamersePool) return
         const withdraw = await gamersePool.withdraw(ethers.utils.parseEther(String(amount)).toString())
         await withdraw.wait()
+
+        if (amount) {
+            console.log("amount", amount)
+            let data = {
+                hash: withdraw.hash,
+                from: withdraw.from,
+                amount: amount,
+                type: 'withdraw'
+            }
+
+            let res = await AddStatAction(data)
+        }
         handleStackDeposit()
         onClose()
         setLoading(false)
@@ -43,14 +56,14 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
     }
 
     const updateMaxAmount = () => {
-            setAmount(Number(depositAmount));
-            setMax(max+1)
+        setAmount(Number(depositAmount));
+        setMax(max + 1)
     }
-    useEffect(()=>{
-        if(inputRef && inputRef.current){
+    useEffect(() => {
+        if (inputRef && inputRef.current) {
             inputRef.current.focus();
         }
-    },[max])
+    }, [max])
 
     return (
         <Modal
@@ -64,7 +77,7 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
         >
             <div className="At-ConnectWalletPopup">
                 <p className='text-grey'>
-                    Staking withdraw disclaimer: Early withdraw will result in 50% of incured profits burned
+                    Early withdrawal disclaimer: <small>Early withdrawal within the first 30 days will result in 50% of rewards being burned.</small>
                 </p>
                 {!loading && <>
                     <form className="w-100 mt-4">
@@ -79,14 +92,14 @@ function ConnectedWalletPopup({ open, onClose, gamersePool, lp_token, depositAmo
                                 onChange={onChangeAmount}
                             />
 
-                        <span onClick={updateMaxAmount} className={`${styles.claimInputBtn} position-absolute`} >Max</span>
+                            <span onClick={updateMaxAmount} className={`${styles.claimInputBtn} position-absolute`} >Max</span>
                             {!validateAmount() &&
-                <div className='text-red text-start mt-1'>Unstake amount must be less than deposit amount</div>}
+                                <div className='text-red text-start mt-1'>Unstake amount must be less than deposit amount</div>}
                         </div>
                     </form>
                     <button type="button" className='At-LightButton At-FBold w-100 mt-2 text-center' disabled={loading || !validateAmount() || !amount} onClick={() => onWithdraw()}>{loading ? 'Wait ...' : 'Unstake'}</button>
                 </>}
-                
+
                 {/* <div className='pb-4'></div> */}
 
                 {loading && <Fragment>
